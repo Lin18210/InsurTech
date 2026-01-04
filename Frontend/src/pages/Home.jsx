@@ -93,7 +93,7 @@ export default function Home() {
                   to="/products" 
                   className="btn-primary inline-flex items-center justify-center px-8 py-4 text-white font-semibold rounded-lg"
                 >
-                  Get a Free Quote
+                  Get a Quote
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
                 <Link 
