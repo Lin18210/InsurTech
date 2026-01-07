@@ -42,6 +42,8 @@ export default function Navbar() {
   const navLinks = [
     { to: '/', label: 'Home', show: true },
     { to: '/products', label: 'Products', show: true },
+    { to: '/about', label: 'About Us', show: true },
+    { to: '/contact', label: 'Contact', show: true },
     { to: '/dashboard', label: 'Dashboard', show: user && !isAdmin },
     { to: '/claims', label: 'Claims', show: user && !isAdmin },
     { to: '/admin', label: 'Admin', show: isAdmin, isAdmin: true },
@@ -59,7 +61,9 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center group">
-              <Shield className="h-8 w-8 text-blue-600 group-hover:scale-105 transition-transform" />
+              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
+                <Shield className="h-5 w-5 text-white" />
+              </div>
               <span className="ml-2 text-xl font-bold text-slate-900">InsurTech</span>
             </Link>
             
@@ -72,7 +76,7 @@ export default function Navbar() {
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     link.isAdmin ? 'text-red-600 hover:bg-red-50' :
                     isActive(link.to) 
-                      ? 'text-blue-600 bg-blue-50' 
+                      ? 'text-sky-600 bg-sky-50' 
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
                 >
@@ -90,7 +94,7 @@ export default function Navbar() {
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors"
                 >
-                  <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-semibold">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center text-sm font-semibold shadow-md">
                     {getInitials(profile?.full_name || user.email)}
                   </div>
                   <span className="text-sm font-medium text-slate-700 hidden lg:block">
@@ -167,7 +171,7 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                 link.isAdmin ? 'text-red-600' :
-                isActive(link.to) ? 'text-blue-600 bg-blue-50' : 'text-slate-700 hover:bg-slate-100'
+                isActive(link.to) ? 'text-sky-600 bg-sky-50' : 'text-slate-700 hover:bg-slate-100'
               }`}
             >
               {link.label}
@@ -177,7 +181,7 @@ export default function Navbar() {
           {user ? (
             <div className="mt-4 pt-4 border-t border-slate-100">
               <div className="flex items-center px-4 py-3">
-                <div className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold mr-3">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center font-semibold mr-3 shadow-md">
                   {getInitials(profile?.full_name || user.email)}
                 </div>
                 <div>
@@ -213,7 +217,7 @@ export default function Navbar() {
               <Link
                 to="/register"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-center px-4 py-3 bg-blue-600 text-white rounded-lg font-semibold"
+                className="block text-center px-4 py-3 bg-gradient-to-r from-sky-400 to-sky-500 text-white rounded-lg font-semibold shadow-md"
               >
                 Get Started
               </Link>

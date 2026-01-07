@@ -12,6 +12,8 @@ import AdminClaimsDashboard from './pages/Admin/ClaimsDashboard'
 import PolicyManager from './pages/Admin/PolicyManager'
 import UserProfile from './pages/UserProfile'
 import Home from './pages/Home'
+import AboutUs from './pages/AboutUs'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<Contact />} />
             
             {/* Customer Routes */}
             <Route path="/dashboard" element={<CustomerDashboard />} />
