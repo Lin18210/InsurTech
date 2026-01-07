@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Shield, Heart, Clock, Headphones, CheckCircle, ArrowRight, Star, Users, TrendingUp, FileCheck, Award, Phone, Sparkles, Zap } from 'lucide-react'
+import { Shield, Heart, Clock, Headphones, CheckCircle, ArrowRight, Star, Users, TrendingUp, FileCheck, Award, Phone, Sparkles, Zap, Car, Home as HomeIcon, Umbrella, DollarSign, Activity, Plane, Briefcase } from 'lucide-react'
 import useScrollAnimation from '../utils/useScrollAnimation'
 
 // Features
@@ -84,16 +84,44 @@ export default function Home() {
     <div className="bg-gradient-to-b from-sky-50 to-white">
       {/* Hero Section - Entry Animations */}
       <section className="relative bg-gradient-to-br from-sky-400 via-sky-500 to-blue-500 pt-20 pb-32 overflow-hidden">
-        {/* Animated decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
+        {/* Animated Protection Orbit - Always Animating */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Gradient blurs */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2 animate-float"></div>
           <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-300/30 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2 animate-floatSlow"></div>
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-white/5 rounded-full blur-2xl animate-pulse"></div>
-          {/* Floating icons with animation */}
-          <Shield className="absolute top-24 right-24 w-12 h-12 text-white/20 animate-float" style={{ animationDelay: '0.5s' }} />
-          <Star className="absolute top-44 right-44 w-8 h-8 text-white/15 animate-floatSlow" style={{ animationDelay: '1s' }} />
-          <Sparkles className="absolute bottom-40 left-20 w-10 h-10 text-white/20 animate-float" style={{ animationDelay: '1.5s' }} />
-          <Heart className="absolute top-32 left-32 w-8 h-8 text-white/10 animate-floatSlow" style={{ animationDelay: '2s' }} />
+          
+          {/* Animated gradient blurs */}
+          
+          {/* Floating Insurance Particles */}
+          <div className="absolute top-20 left-10 w-6 h-6 text-white/20 animate-particle-float" style={{ animationDelay: '0s' }}>
+            <Shield className="w-full h-full" />
+          </div>
+          <div className="absolute top-40 right-10 w-5 h-5 text-white/15 animate-particle-float" style={{ animationDelay: '2s' }}>
+            <DollarSign className="w-full h-full" />
+          </div>
+          <div className="absolute bottom-32 left-1/3 w-4 h-4 text-white/20 animate-particle-float" style={{ animationDelay: '4s' }}>
+            <Activity className="w-full h-full" />
+          </div>
+          <div className="absolute top-1/3 left-20 w-5 h-5 text-white/15 animate-particle-float" style={{ animationDelay: '1s' }}>
+            <Star className="w-full h-full" />
+          </div>
+          <div className="absolute bottom-40 right-1/3 w-6 h-6 text-white/10 animate-particle-float" style={{ animationDelay: '3s' }}>
+            <Heart className="w-full h-full" />
+          </div>
+          <div className="absolute top-1/4 right-1/3 w-4 h-4 text-white/20 animate-particle-float" style={{ animationDelay: '5s' }}>
+            <Sparkles className="w-full h-full" />
+          </div>
+          
+          {/* Rising protection particles */}
+          <div className="absolute bottom-0 left-1/4 w-3 h-3 text-white/30 animate-rise-up" style={{ animationDelay: '0s', animationDuration: '12s' }}>
+            <Shield className="w-full h-full" />
+          </div>
+          <div className="absolute bottom-0 left-1/2 w-2 h-2 text-white/20 animate-rise-up" style={{ animationDelay: '3s', animationDuration: '15s' }}>
+            <Heart className="w-full h-full" />
+          </div>
+          <div className="absolute bottom-0 right-1/4 w-3 h-3 text-white/25 animate-rise-up" style={{ animationDelay: '6s', animationDuration: '18s' }}>
+            <Star className="w-full h-full" />
+          </div>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -145,38 +173,66 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right content - Scale bounce animation */}
+            {/* Right content - Interactive Orbiting Category Icons */}
             <div className="animate-scaleInBounce opacity-0-start delay-300 lg:pl-12">
-              <div className="relative">
-                <div className="absolute inset-0 bg-white/20 rounded-3xl blur-xl animate-pulseGlow"></div>
-                <div className="relative bg-white rounded-2xl shadow-2xl p-8 border border-sky-100 card-animated">
-                  <div className="text-center mb-6">
-                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-2">
-                      <Zap className="w-4 h-4 mr-2" />
-                      Why Choose Us
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900">Why Choose InsurTech?</h3>
+              <div className="relative flex items-center justify-center">
+                {/* Animated glow background */}
+                <div className="absolute w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulseGlow"></div>
+                
+                {/* Orbit Container - expands on hover */}
+                <div className="orbit-hover-expand relative w-72 h-72 md:w-80 md:h-80 hover:scale-100">
+                  {/* Outer rotating rings */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-80 h-80 border-2 border-dashed border-white/20 rounded-full animate-spin-slow"></div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    {stats.map((stat, index) => (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-72 h-72 border border-white/30 rounded-full animate-spin-slow-reverse"></div>
+                  </div>
+                  
+                  {/* Central Shield with pulse - stays the same on hover */}
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <Link 
+                      to="/products" 
+                      className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center animate-protection-ring hover:bg-white/40 hover:scale-110 transition-all duration-300 cursor-pointer"
+                    >
+                      <Shield className="w-10 h-10 text-white" />
+                    </Link>
+                  </div>
+                  
+                  {/* Orbiting Category Icons - Clickable */}
+                  {[
+                    { icon: Heart, label: 'Health', category: 'health', delay: 0 },
+                    { icon: HomeIcon, label: 'Property', category: 'property', delay: -2 },
+                    { icon: Car, label: 'Auto', category: 'auto', delay: -4 },
+                    { icon: Users, label: 'Life', category: 'life', delay: -6 },
+                    { icon: Briefcase, label: 'Business', category: 'business', delay: -8 },
+                    { icon: Plane, label: 'Travel', category: 'travel', delay: -10 },
+                  ].map((item) => {
+                    const IconComponent = item.icon
+                    return (
                       <div 
-                        key={index} 
-                        className="text-center p-4 rounded-xl bg-gradient-to-br from-sky-50 to-white border border-sky-100 hover:shadow-lg transition-all hover:-translate-y-1"
-                        style={{ animationDelay: `${0.5 + index * 0.1}s` }}
+                        key={item.category}
+                        className="absolute inset-0 flex items-center justify-center"
+                        style={{ 
+                          animation: `orbit 12s linear infinite`, 
+                          animationDelay: `${item.delay}s`,
+                          pointerEvents: 'none'
+                        }}
                       >
-                        <div className="text-3xl font-bold text-sky-600 mb-1">{stat.number}</div>
-                        <div className="text-sm text-gray-600">{stat.label}</div>
+                        <Link
+                          to={`/products?category=${item.category}`}
+                          className="orbit-icon-item w-14 h-14 rounded-full bg-white/25 backdrop-blur-md flex flex-col items-center justify-center shadow-lg cursor-pointer hover:bg-white hover:scale-110 transition-all duration-300"
+                          style={{ pointerEvents: 'auto' }}
+                          title={`View ${item.label} Insurance`}
+                        >
+                          <IconComponent className="orbit-icon-svg w-6 h-6 text-white" />
+                          <span className="orbit-icon-label text-[9px] text-white font-semibold mt-0.5">
+                            {item.label}
+                          </span>
+                        </Link>
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-6 pt-6 border-t border-sky-100">
-                    <div className="flex items-center justify-center gap-1">
-                      {[1,2,3,4,5].map((i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400 animate-scaleIn" style={{ animationDelay: `${0.8 + i * 0.1}s` }} />
-                      ))}
-                      <span className="ml-2 text-sm text-gray-600">4.9/5 from 2,000+ reviews</span>
-                    </div>
-                  </div>
+                    )
+                  })}
                 </div>
               </div>
             </div>
@@ -328,11 +384,51 @@ export default function Home() {
       {/* CTA Section - Scale animation */}
       <section ref={ctaRef} className="py-20 bg-gradient-to-r from-sky-400 via-sky-500 to-blue-500 relative overflow-hidden">
         {/* Animated decorative elements */}
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-64 h-64 bg-white/10 rounded-full blur-3xl animate-float"></div>
           <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-sky-300/20 rounded-full blur-2xl animate-floatSlow"></div>
-          <Shield className="absolute top-10 right-20 w-16 h-16 text-white/10 animate-float" style={{ animationDelay: '0.5s' }} />
-          <Heart className="absolute bottom-10 left-20 w-12 h-12 text-white/10 animate-floatSlow" style={{ animationDelay: '1s' }} />
+          
+          {/* Animated protection ring on left */}
+          <div className="absolute top-1/2 left-10 -translate-y-1/2 hidden md:block">
+            <div className="relative w-24 h-24">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-white/10 animate-protection-ring flex items-center justify-center">
+                  <Shield className="w-8 h-8 text-white/40 animate-pulse" />
+                </div>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-20 h-20 border border-white/20 rounded-full animate-spin-slow"></div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Animated protection ring on right */}
+          <div className="absolute top-1/2 right-10 -translate-y-1/2 hidden md:block">
+            <div className="relative w-24 h-24">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-white/10 animate-protection-ring flex items-center justify-center" style={{ animationDelay: '1s' }}>
+                  <Heart className="w-8 h-8 text-white/40 animate-heartbeat" />
+                </div>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-20 h-20 border border-dashed border-white/20 rounded-full animate-spin-slow-reverse"></div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Orbiting mini icons */}
+          <div className="absolute top-10 right-20 w-8 h-8 text-white/20 animate-orbit" style={{ animationDuration: '8s' }}>
+            <Car className="w-full h-full" />
+          </div>
+          <div className="absolute bottom-10 left-20 w-8 h-8 text-white/20 animate-orbit-reverse" style={{ animationDuration: '10s' }}>
+            <HomeIcon className="w-full h-full" />
+          </div>
+          <div className="absolute top-1/4 left-1/3 w-6 h-6 text-white/15 animate-particle-float" style={{ animationDelay: '2s' }}>
+            <Umbrella className="w-full h-full" />
+          </div>
+          <div className="absolute bottom-1/4 right-1/3 w-5 h-5 text-white/20 animate-particle-float" style={{ animationDelay: '4s' }}>
+            <DollarSign className="w-full h-full" />
+          </div>
         </div>
         
         <div className={`relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center ${ctaInView ? 'animate-scaleInBounce' : 'opacity-0'}`}>
@@ -359,50 +455,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            <div className="md:col-span-2">
-              <div className="flex items-center mb-4 group">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center group-hover:rotate-12 transition-transform">
-                  <Shield className="h-6 w-6 text-white" />
-                </div>
-                <span className="ml-3 text-xl font-bold text-white">InsurTech</span>
-              </div>
-              <p className="text-sm max-w-md">
-                Providing trusted insurance solutions since 2009. We're committed to protecting what matters most to you and your family.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Products</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition underline-animate">Health Insurance</a></li>
-                <li><a href="#" className="hover:text-white transition underline-animate">Life Insurance</a></li>
-                <li><a href="#" className="hover:text-white transition underline-animate">Auto Insurance</a></li>
-                <li><a href="#" className="hover:text-white transition underline-animate">Home Insurance</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link to="/about" className="hover:text-white transition underline-animate">About Us</Link></li>
-                <li><a href="#" className="hover:text-white transition underline-animate">Careers</a></li>
-                <li><Link to="/contact" className="hover:text-white transition underline-animate">Contact</Link></li>
-                <li><a href="#" className="hover:text-white transition underline-animate">Blog</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-            <p>© 2024 InsurTech. All rights reserved.</p>
-            <div className="flex gap-6 mt-4 md:mt-0">
-              <a href="#" className="hover:text-white transition">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition">Terms of Service</a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
+

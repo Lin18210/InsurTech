@@ -7,7 +7,7 @@ import { supabase } from '../../lib/supabase'
 import { format } from 'date-fns'
 import * as XLSX from 'xlsx'
 import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+import autoTable from 'jspdf-autotable'
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
     const doc = new jsPDF()
     doc.text("InsurTech Subscriptions Report", 20, 10)
     
-    doc.autoTable({
+    autoTable(doc, {
       head: [['Date', 'User', 'Policy', 'Amount', 'Frequency', 'Status']],
       body: subscriptions.map(s => [
         s.created_at && !isNaN(new Date(s.created_at).getTime()) ? format(new Date(s.created_at), 'yyyy-MM-dd') : 'N/A',
@@ -177,7 +177,7 @@ export default function AdminDashboard() {
   if (!isAdmin) return <div className="p-8">Access Denied. Redirecting...</div>
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
       <div className="md:flex md:items-center md:justify-between mb-8">
         <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
         <div className="flex space-x-4">

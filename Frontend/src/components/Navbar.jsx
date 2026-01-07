@@ -39,6 +39,15 @@ export default function Navbar() {
     return name ? name.split(' ').map((n) => n[0]).join('').toUpperCase().substring(0, 2) : 'U'
   }
 
+  const handleNavClick = (path, e) => {
+    // If already on this page, scroll to top
+    if (location.pathname === path) {
+      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+    setIsMobileMenuOpen(false)
+  }
+
   const navLinks = [
     { to: '/', label: 'Home', show: true },
     { to: '/products', label: 'Products', show: true },
@@ -60,7 +69,7 @@ export default function Navbar() {
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center group">
+            <Link to="/" onClick={(e) => handleNavClick('/', e)} className="flex items-center group">
               <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
                 <Shield className="h-5 w-5 text-white" />
               </div>
@@ -73,6 +82,7 @@ export default function Navbar() {
                 <Link
                   key={link.to}
                   to={link.to}
+                  onClick={(e) => handleNavClick(link.to, e)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     link.isAdmin ? 'text-red-600 hover:bg-red-50' :
                     isActive(link.to) 
@@ -168,7 +178,7 @@ export default function Navbar() {
             <Link
               key={link.to}
               to={link.to}
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(link.to, e)}
               className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                 link.isAdmin ? 'text-red-600' :
                 isActive(link.to) ? 'text-sky-600 bg-sky-50' : 'text-slate-700 hover:bg-slate-100'

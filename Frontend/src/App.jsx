@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import ScrollToTop from './components/ScrollToTop'
+import Footer from './components/Footer'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import { AuthProvider } from './context/AuthContext'
@@ -19,29 +21,33 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="min-h-screen bg-gray-100">
+        <ScrollToTop />
+        <div className="min-h-screen bg-gray-100 flex flex-col">
           <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/contact" element={<Contact />} />
-            
-            {/* Customer Routes */}
-            <Route path="/dashboard" element={<CustomerDashboard />} />
-            <Route path="/claims" element={<ClaimsCenter />} />
-            <Route path="/checkout" element={<CheckoutFlow />} />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/about" element={<AboutUs />} />
+              <Route path="/contact" element={<Contact />} />
+              
+              {/* Customer Routes */}
+              <Route path="/dashboard" element={<CustomerDashboard />} />
+              <Route path="/claims" element={<ClaimsCenter />} />
+              <Route path="/checkout" element={<CheckoutFlow />} />
 
-            {/* Admin Routes */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/claims" element={<AdminClaimsDashboard />} />
-            <Route path="/admin/policies" element={<PolicyManager />} />
-            
-            {/* User Profile */}
-            <Route path="/profile" element={<UserProfile />} />
-          </Routes>
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/claims" element={<AdminClaimsDashboard />} />
+              <Route path="/admin/policies" element={<PolicyManager />} />
+              
+              {/* User Profile */}
+              <Route path="/profile" element={<UserProfile />} />
+            </Routes>
+          </main>
+          <Footer />
         </div>
       </Router>
     </AuthProvider>

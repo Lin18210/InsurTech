@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { insuranceService } from '../services/insuranceService'
 import { 
@@ -163,6 +163,15 @@ export default function Products() {
   const [animateCards, setAnimateCards] = useState(false)
   const { user } = useAuth()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
+  // Read category from URL on mount or when URL changes
+  useEffect(() => {
+    const categoryFromUrl = searchParams.get('category')
+    if (categoryFromUrl && categories.some(c => c.key === categoryFromUrl)) {
+      setActiveCategory(categoryFromUrl)
+    }
+  }, [searchParams])
 
   useEffect(() => {
     loadPolicies()
