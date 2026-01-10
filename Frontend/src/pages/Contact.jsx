@@ -27,7 +27,7 @@ const contactInfo = [
     icon: MapPin,
     title: 'Office',
     description: 'Visit our headquarters',
-    value: '123 Insurance Plaza, Suite 400, New York, NY 10001',
+    value: '73^110 Manawhari street,Chanmyathasi township,MDY',
     action: null
   },
   {
@@ -375,9 +375,9 @@ export default function Contact() {
                   <h3 className="text-xl font-bold text-gray-900">Our Headquarters</h3>
                 </div>
                 <p className="text-gray-600 mb-4">
-                  123 Insurance Plaza, Suite 400<br />
-                  New York, NY 10001<br />
-                  United States
+                  73^110 Manawhari street<br />
+                  Chanmyathasi township<br />
+                  Mandalay, Myanmar
                 </p>
                 <a 
                   href="https://maps.google.com"
