@@ -5,49 +5,46 @@ import { insuranceService } from '../services/insuranceService'
 import { 
   Shield, Check, ArrowRight, Star, Award,
   Heart, Car, Home, Briefcase, Umbrella, Users, 
-  Plane, Activity, Building2, Sparkles, LayoutGrid
+  Activity, Building2, Sparkles, LayoutGrid
 } from 'lucide-react'
 
 // Category definitions with icons
 const categories = [
   { key: 'all', label: 'All Plans', icon: LayoutGrid },
-  { key: 'health', label: 'Health', icon: Heart },
-  { key: 'property', label: 'Property', icon: Home },
-  { key: 'auto', label: 'Auto', icon: Car },
   { key: 'life', label: 'Life', icon: Users },
-  { key: 'business', label: 'Business', icon: Briefcase },
-  { key: 'travel', label: 'Travel', icon: Plane },
+  { key: 'health', label: 'Health', icon: Heart },
+  { key: 'auto', label: 'Auto', icon: Car },
+  { key: 'property', label: 'Property', icon: Home },
+  { key: 'general', label: 'General', icon: Briefcase },
 ]
 
 // Map policy types/names to category keys
 const getCategoryForPolicy = (policyName) => {
   const name = policyName?.toLowerCase() || ''
   
+  if (name.includes('life') || name.includes('term') || name.includes('whole')) return 'life'
   if (name.includes('health') || name.includes('medical') || name.includes('dental') || name.includes('vision')) return 'health'
   if (name.includes('auto') || name.includes('car') || name.includes('vehicle') || name.includes('motor')) return 'auto'
   if (name.includes('home') || name.includes('property') || name.includes('house') || name.includes('renters') || name.includes('apartment')) return 'property'
-  if (name.includes('life') || name.includes('term') || name.includes('whole')) return 'life'
-  if (name.includes('travel') || name.includes('trip')) return 'travel'
-  if (name.includes('business') || name.includes('commercial') || name.includes('liability')) return 'business'
   
-  return 'health'
+  // General category for travel, business, liability, and any other insurance types
+  return 'general'
 }
 
 // Map policy types/names to icons
 const getIconForPolicy = (policyName) => {
   const name = policyName?.toLowerCase() || ''
   
+  if (name.includes('life')) return Users
   if (name.includes('health') || name.includes('medical')) return Heart
   if (name.includes('auto') || name.includes('car') || name.includes('vehicle')) return Car
   if (name.includes('home') || name.includes('property') || name.includes('house')) return Home
-  if (name.includes('life')) return Users
-  if (name.includes('travel')) return Plane
-  if (name.includes('business') || name.includes('commercial')) return Briefcase
   if (name.includes('disability') || name.includes('critical')) return Activity
-  if (name.includes('umbrella') || name.includes('liability')) return Umbrella
   if (name.includes('renters') || name.includes('apartment')) return Building2
+  if (name.includes('umbrella') || name.includes('liability')) return Umbrella
   
-  return Shield
+  // General category - travel, business, commercial, etc.
+  return Briefcase
 }
 
 // Custom card animation styles
@@ -362,13 +359,13 @@ export default function Products() {
                         className={`flex items-baseline ${animateCards ? 'price-count' : 'opacity-0'}`}
                         style={{ animationDelay: `${index * 150 + 400}ms` }}
                       >
-                        <span className="text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">${price}</span>
-                        <span className="text-gray-500 ml-2 text-lg">
-                          /{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}
+                        <span className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">{price.toLocaleString()}</span>
+                        <span className="text-gray-500 ml-2 text-base">
+                          MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}
                         </span>
                       </div>
                       <p className="text-sm text-gray-500 mt-2">
-                        💰 Coverage up to <span className="font-semibold text-sky-600">${policy.coverage_amount?.toLocaleString()}</span>
+                        💰 Coverage up to <span className="font-semibold text-sky-600">{policy.coverage_amount?.toLocaleString()} MMK</span>
                       </p>
                     </div>
 

@@ -3,12 +3,15 @@ const API_URL = `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/
 export const authService = {
   // Login with email and password
   async login(email, password) {
+    console.log('📡 Calling login API:', `${API_URL}/login`)
     const res = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
     })
+    console.log('📡 API response status:', res.status)
     const data = await res.json()
+    console.log('📡 API response data:', data)
     if (!res.ok) throw new Error(data.error)
     return data
   },

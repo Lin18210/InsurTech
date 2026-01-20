@@ -1,7 +1,16 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { LogOut, Shield, User, Menu, X, ChevronDown } from 'lucide-react'
+import { LogOut, Shield, User, Menu, X, ChevronDown, Heart, Car, Home, Users, Briefcase } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
+
+// Product categories for dropdown
+const productCategories = [
+  { key: 'life', label: 'Life', icon: Users },
+  { key: 'health', label: 'Health', icon: Heart },
+  { key: 'auto', label: 'Auto', icon: Car },
+  { key: 'property', label: 'Property', icon: Home },
+  { key: 'general', label: 'General', icon: Briefcase },
+]
 
 export default function Navbar() {
   const { user, profile, logout, isAdmin } = useAuth()
@@ -9,8 +18,11 @@ export default function Navbar() {
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false)
+  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const menuRef = useRef(null)
+  const productsDropdownRef = useRef(null)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10)
@@ -22,6 +34,9 @@ export default function Navbar() {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false)
+      }
+      if (productsDropdownRef.current && !productsDropdownRef.current.contains(event.target)) {
+        setIsProductsDropdownOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
@@ -46,11 +61,19 @@ export default function Navbar() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
     setIsMobileMenuOpen(false)
+    setIsMobileProductsOpen(false)
+  }
+
+  const handleProductCategoryClick = (categoryKey) => {
+    navigate(`/products?category=${categoryKey}`)
+    setIsProductsDropdownOpen(false)
+    setIsMobileMenuOpen(false)
+    setIsMobileProductsOpen(false)
   }
 
   const navLinks = [
     { to: '/', label: 'Home', show: true },
-    { to: '/products', label: 'Products', show: true },
+    { to: '/products', label: 'Products', show: true, hasDropdown: true },
     { to: '/about', label: 'About Us', show: true },
     { to: '/contact', label: 'Contact', show: true },
     { to: '/dashboard', label: 'Dashboard', show: user && !isAdmin },
@@ -79,19 +102,62 @@ export default function Navbar() {
             {/* Desktop Nav */}
             <div className="hidden md:flex md:ml-10 space-x-1">
               {navLinks.filter(link => link.show).map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={(e) => handleNavClick(link.to, e)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    link.isAdmin ? 'text-red-600 hover:bg-red-50' :
-                    isActive(link.to) 
-                      ? 'text-sky-600 bg-sky-50' 
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                link.hasDropdown ? (
+                  <div key={link.to} className="relative" ref={productsDropdownRef}>
+                    <button
+                      onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
+                      className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        isActive(link.to) || location.pathname.startsWith('/products')
+                          ? 'text-sky-600 bg-sky-50' 
+                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                      }`}
+                    >
+                      {link.label}
+                      <ChevronDown className={`ml-1 w-4 h-4 transition-transform ${isProductsDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {isProductsDropdownOpen && (
+                      <div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 animate-scaleIn z-50">
+                        <Link
+                          to="/products"
+                          onClick={() => setIsProductsDropdownOpen(false)}
+                          className="flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors"
+                        >
+                          <Shield className="w-5 h-5 mr-3 text-slate-400" />
+                          All Products
+                        </Link>
+                        <div className="border-t border-slate-100 my-1"></div>
+                        {productCategories.map((category) => {
+                          const CategoryIcon = category.icon
+                          return (
+                            <button
+                              key={category.key}
+                              onClick={() => handleProductCategoryClick(category.key)}
+                              className="flex items-center w-full px-4 py-3 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors"
+                            >
+                              <CategoryIcon className="w-5 h-5 mr-3 text-slate-400" />
+                              {category.label} Insurance
+                            </button>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={(e) => handleNavClick(link.to, e)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      link.isAdmin ? 'text-red-600 hover:bg-red-50' :
+                      isActive(link.to) 
+                        ? 'text-sky-600 bg-sky-50' 
+                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )
               ))}
             </div>
           </div>
@@ -175,17 +241,57 @@ export default function Navbar() {
       }`}>
         <div className="px-4 py-4 bg-white border-t border-slate-100 shadow-lg">
           {navLinks.filter(link => link.show).map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              onClick={(e) => handleNavClick(link.to, e)}
-              className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                link.isAdmin ? 'text-red-600' :
-                isActive(link.to) ? 'text-sky-600 bg-sky-50' : 'text-slate-700 hover:bg-slate-100'
-              }`}
-            >
-              {link.label}
-            </Link>
+            link.hasDropdown ? (
+              <div key={link.to}>
+                <button
+                  onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
+                  className={`flex items-center justify-between w-full px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    location.pathname.startsWith('/products') ? 'text-sky-600 bg-sky-50' : 'text-slate-700 hover:bg-slate-100'
+                  }`}
+                >
+                  {link.label}
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isMobileProductsOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {isMobileProductsOpen && (
+                  <div className="ml-4 mt-1 space-y-1 border-l-2 border-sky-200 pl-4">
+                    <Link
+                      to="/products"
+                      onClick={() => { setIsMobileMenuOpen(false); setIsMobileProductsOpen(false); }}
+                      className="flex items-center px-3 py-2 text-sm text-slate-600 hover:text-sky-600 rounded-lg hover:bg-sky-50"
+                    >
+                      <Shield className="w-4 h-4 mr-2" />
+                      All Products
+                    </Link>
+                    {productCategories.map((category) => {
+                      const CategoryIcon = category.icon
+                      return (
+                        <button
+                          key={category.key}
+                          onClick={() => handleProductCategoryClick(category.key)}
+                          className="flex items-center w-full px-3 py-2 text-sm text-slate-600 hover:text-sky-600 rounded-lg hover:bg-sky-50"
+                        >
+                          <CategoryIcon className="w-4 h-4 mr-2" />
+                          {category.label}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={(e) => handleNavClick(link.to, e)}
+                className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  link.isAdmin ? 'text-red-600' :
+                  isActive(link.to) ? 'text-sky-600 bg-sky-50' : 'text-slate-700 hover:bg-slate-100'
+                }`}
+              >
+                {link.label}
+              </Link>
+            )
           ))}
           
           {user ? (

@@ -208,7 +208,7 @@ export default function CheckoutFlow() {
   if (loading && !policy) return <div className="p-8 text-center text-gray-500">Loading checkout...</div>
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-12">
+    <div className="max-w-3xl mx-auto px-4 pt-24 pb-12">
       {/* Progress Bar - 5 Steps */}
       <div className="mb-8">
         <div className="flex items-center justify-between text-xs sm:text-sm font-medium text-gray-500">

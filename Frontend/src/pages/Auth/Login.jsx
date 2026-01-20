@@ -12,10 +12,13 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    console.log('🔐 Login attempt:', { email })
     try {
-      await login(email, password)
+      const result = await login(email, password)
+      console.log('✅ Login successful:', result)
       navigate('/')
     } catch (err) {
+      console.error('❌ Login error:', err)
       let message = err.message
       if (message === 'Invalid login credentials') {
         message = 'Incorrect email or password. Please try again.'

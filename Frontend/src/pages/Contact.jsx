@@ -6,38 +6,7 @@ import {
   Shield, Star, Sparkles
 } from 'lucide-react'
 import useScrollAnimation from '../utils/useScrollAnimation'
-
-// Contact information
-const contactInfo = [
-  {
-    icon: Phone,
-    title: 'Phone',
-    description: 'Mon-Fri from 8am to 6pm',
-    value: '+1 (555) 123-4567',
-    action: 'tel:+15551234567'
-  },
-  {
-    icon: Mail,
-    title: 'Email',
-    description: 'We reply within 24 hours',
-    value: 'support@insurtech.com',
-    action: 'mailto:support@insurtech.com'
-  },
-  {
-    icon: MapPin,
-    title: 'Office',
-    description: 'Visit our headquarters',
-    value: '73^110 Manawhari street,Chanmyathasi township,MDY',
-    action: null
-  },
-  {
-    icon: Clock,
-    title: 'Business Hours',
-    description: 'We\'re available',
-    value: 'Mon - Fri: 8:00 AM - 6:00 PM EST',
-    action: null
-  }
-]
+import myanmarBanner from '../assets/Banner 2.jpeg'
 
 // FAQ teaser items
 const quickFAQ = [
@@ -58,7 +27,6 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   
-  const [cardsRef, cardsInView] = useScrollAnimation()
   const [formRef, formInView] = useScrollAnimation()
   const [ctaRef, ctaInView] = useScrollAnimation()
 
@@ -89,7 +57,16 @@ export default function Contact() {
   return (
     <div className="bg-gradient-to-b from-sky-50 to-white">
       {/* Hero Section - Blur and slide animations */}
-      <section className="relative bg-gradient-to-br from-sky-400 via-sky-500 to-blue-500 pt-32 pb-20 overflow-hidden">
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0">
+          <img 
+            src={myanmarBanner} 
+            alt="Myanmar Insurance" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-sky-400/85 via-sky-500/80 to-blue-500/85"></div>
+        </div>
         {/* Animated decorative elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2 animate-float"></div>
@@ -122,39 +99,6 @@ export default function Contact() {
           <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
             <path d="M0 50L60 45C120 40 240 30 360 35C480 40 600 60 720 65C840 70 960 60 1080 50C1200 40 1320 30 1380 25L1440 20V100H1380C1320 100 1200 100 1080 100C960 100 840 100 720 100C600 100 480 100 360 100C240 100 120 100 60 100H0V50Z" fill="rgb(240 249 255)"/>
           </svg>
-        </div>
-      </section>
-
-      {/* Contact Information Cards - Staggered flip animation */}
-      <section ref={cardsRef} className="py-12 bg-gradient-to-b from-sky-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 -mt-16 relative z-10">
-            {contactInfo.map((info, index) => (
-              <div 
-                key={index}
-                className={`bg-white rounded-2xl p-6 shadow-xl border border-sky-100 card-animated ${
-                  cardsInView ? 'animate-flipIn' : 'opacity-0'
-                }`}
-                style={{ animationDelay: `${index * 0.15}s` }}
-              >
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center mb-4 shadow-lg group-hover:rotate-12 transition-transform">
-                  <info.icon className="w-7 h-7" />
-                </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h3>
-                <p className="text-sm text-gray-500 mb-2">{info.description}</p>
-                {info.action ? (
-                  <a 
-                    href={info.action}
-                    className="text-sky-600 font-medium hover:text-sky-700 transition-colors underline-animate"
-                  >
-                    {info.value}
-                  </a>
-                ) : (
-                  <p className="text-gray-700 text-sm">{info.value}</p>
-                )}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
