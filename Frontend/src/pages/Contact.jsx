@@ -39,19 +39,41 @@ export default function Contact() {
     e.preventDefault()
     setIsLoading(true)
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    
-    setIsLoading(false)
-    setIsSubmitted(true)
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    })
+    try {
+      const submitData = new FormData()
+      submitData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY)
+      submitData.append("name", `${formData.firstName} ${formData.lastName}`)
+      submitData.append("email", formData.email)
+      submitData.append("phone", formData.phone || 'Not provided')
+      submitData.append("subject", `InsurTech Contact: ${formData.subject}`)
+      submitData.append("message", formData.message)
+      
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: submitData
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        setIsSubmitted(true)
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          subject: '',
+          message: ''
+        })
+      } else {
+        alert('Failed to send message. Please try again.')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('An error occurred. Please try again later.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -195,7 +217,7 @@ export default function Contact() {
                           value={formData.phone}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-sky-200 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 hover:border-sky-300"
-                          placeholder="+1 (555) 123-4567"
+                          placeholder="+95 123456789"
                         />
                       </div>
                     </div>
