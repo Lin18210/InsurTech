@@ -601,6 +601,7 @@ function PolicyDetailModal({ policy, frequency, onClose, onApply }) {
 export default function Products() {
   const [policies, setPolicies] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
   const [frequency, setFrequency] = useState('yearly')
   const [activeCategory, setActiveCategory] = useState('all')
   const [animateCards, setAnimateCards] = useState(false)
@@ -630,10 +631,17 @@ export default function Products() {
 
   const loadPolicies = async () => {
     try {
+      setError(null)
+      // Add timeout to prevent infinite loading
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 10000) // 10 second timeout
+      
       const data = await insuranceService.getPolicies()
-      setPolicies(data)
+      clearTimeout(timeoutId)
+      setPolicies(data || [])
     } catch (error) {
       console.error('Error loading policies:', error)
+      setError('Unable to load insurance plans. Please try again later.')
     } finally {
       setLoading(false)
     }
@@ -672,6 +680,30 @@ export default function Products() {
             <Shield className="absolute inset-0 m-auto w-8 h-8 text-sky-500 animate-pulse" />
           </div>
           <p className="text-slate-600 text-lg">Loading amazing plans...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-50 to-white">
+        <div className="text-center max-w-md mx-auto px-4">
+          <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center mx-auto mb-6">
+            <Shield className="w-10 h-10 text-red-500" />
+          </div>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-2">Oops! Something went wrong</h3>
+          <p className="text-gray-600 mb-6">{error}</p>
+          <button
+            onClick={() => {
+              setLoading(true)
+              loadPolicies()
+            }}
+            className="btn-primary inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transition-transform"
+          >
+            Try Again
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </button>
         </div>
       </div>
     )
