@@ -76,7 +76,7 @@ export default function PolicyManager() {
               <div>
                 <h3 className="text-lg font-medium text-gray-900 dark:text-white">{policy.name}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">{policy.description}</p>
-                <p className="text-sm font-bold mt-1 text-gray-900 dark:text-white">${policy.base_annual_premium} / year</p>
+                <p className="text-sm font-bold mt-1 text-gray-900 dark:text-white">{policy.base_annual_premium} MMK / year</p>
               </div>
               <button 
                 onClick={() => handleDelete(policy.id)}

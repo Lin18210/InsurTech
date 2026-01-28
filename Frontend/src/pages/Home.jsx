@@ -42,21 +42,21 @@ const testimonials = [
     name: 'David Thompson',
     role: 'Business Owner',
     company: 'Thompson & Associates',
-    content: 'InsurTech has been our insurance partner for 5 years. Their professional service and quick claims processing have saved us countless hours.',
+    content: 'W&N Insurance has been our insurance partner for 5 years. Their professional service and quick claims processing have saved us countless hours.',
     image: 'DT'
   },
   {
     name: 'Maria Santos',
     role: 'HR Director',
     company: 'Global Solutions Inc.',
-    content: 'We switched to InsurTech for our employee health coverage. The transition was seamless and our employees love the comprehensive benefits.',
+    content: 'We switched to W&N Insurance for our employee health coverage. The transition was seamless and our employees love the comprehensive benefits.',
     image: 'MS'
   },
   {
     name: 'James Wilson',
     role: 'Financial Advisor',
     company: 'Wilson Financial',
-    content: 'I recommend InsurTech to all my clients. Their transparent pricing and excellent customer service set them apart from competitors.',
+    content: 'I recommend W&N Insurance to all my clients. Their transparent pricing and excellent customer service set them apart from competitors.',
     image: 'JW'
   }
 ]

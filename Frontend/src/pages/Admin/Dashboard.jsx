@@ -163,7 +163,7 @@ export default function AdminDashboard() {
         s.created_at && !isNaN(new Date(s.created_at).getTime()) ? format(new Date(s.created_at), 'yyyy-MM-dd') : 'N/A',
         s.profiles?.full_name || 'N/A',
         s.policies?.name || 'N/A',
-        `$${s.amount}`,
+        `${s.amount} MMK`,
         s.frequency,
         s.status
       ]),
@@ -207,7 +207,7 @@ export default function AdminDashboard() {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" stroke="#9ca3af" />
                         <YAxis stroke="#9ca3af" />
-                        <Tooltip formatter={(value) => `$${value}`} contentStyle={{ backgroundColor: 'var(--tooltip-bg, #fff)', border: '1px solid #e5e7eb' }} />
+                        <Tooltip formatter={(value) => `${value} MMK`} contentStyle={{ backgroundColor: 'var(--tooltip-bg, #fff)', border: '1px solid #e5e7eb' }} />
                         <Legend />
                         <Bar dataKey="revenue" fill="#4F46E5" name="Revenue" />
                     </BarChart>
@@ -247,7 +247,7 @@ export default function AdminDashboard() {
         <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
              <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Revenue</dt>
-             <dd className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">${totalRevenue.toLocaleString()}</dd>
+             <dd className="mt-1 text-3xl font-semibold text-gray-900 dark:text-white">{totalRevenue.toLocaleString()} MMK</dd>
           </div>
         </div>
         <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
@@ -294,7 +294,7 @@ export default function AdminDashboard() {
                     {s.policies?.name || 'N/A'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900 dark:text-white">
-                    ${s.amount}
+                    {s.amount} MMK
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-center">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -386,7 +386,7 @@ export default function AdminDashboard() {
                   </div>
                   <div>
                     <span className="text-gray-500 dark:text-gray-400">Premium Amount:</span>
-                    <p className="font-bold text-blue-600 dark:text-blue-400">${selectedSubscription.amount}</p>
+                    <p className="font-bold text-blue-600 dark:text-blue-400">{selectedSubscription.amount} MMK</p>
                   </div>
                   <div>
                     <span className="text-gray-500 dark:text-gray-400">Status:</span>

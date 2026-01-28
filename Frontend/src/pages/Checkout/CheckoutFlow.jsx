@@ -425,9 +425,9 @@ export default function CheckoutFlow() {
                 {/* Final Premium */}
                 <div className="text-center mb-6 p-4 bg-white rounded-lg shadow-sm">
                   <p className="text-sm text-gray-500 mb-1">Your {calcData.frequency} premium</p>
-                  <p className="text-4xl font-bold text-blue-600">${calculation.finalPremium}</p>
+                  <p className="text-4xl font-bold text-blue-600">{calculation.finalPremium} MMK</p>
                   <p className="text-xs text-gray-400 mt-1">
-                    Annual equivalent: ${calculation.annualEquivalent}/year
+                    Annual equivalent: {calculation.annualEquivalent} MMK/year
                   </p>
                 </div>
 
@@ -435,7 +435,7 @@ export default function CheckoutFlow() {
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between py-2 border-b border-gray-200">
                     <span className="text-gray-600">Base Premium</span>
-                    <span className="font-medium">${calculation.breakdown.basePremium}/year</span>
+                    <span className="font-medium">{calculation.breakdown.basePremium} MMK/year</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-gray-200">
                     <span className="text-gray-600">Age Factor ({calculation.breakdown.ageGroup})</span>
@@ -535,8 +535,8 @@ export default function CheckoutFlow() {
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div><span className="text-gray-500">Policy:</span> <span className="font-medium">{policy.name}</span></div>
                 <div><span className="text-gray-500">Frequency:</span> <span className="font-medium capitalize">{calcData.frequency}</span></div>
-                <div><span className="text-gray-500">Coverage:</span> <span className="font-medium">${policy.coverage_amount?.toLocaleString()}</span></div>
-                <div><span className="text-gray-500">Premium:</span> <span className="font-bold text-blue-600">${premium}</span></div>
+                <div><span className="text-gray-500">Coverage:</span> <span className="font-medium">{policy.coverage_amount?.toLocaleString()} MMK</span></div>
+                <div><span className="text-gray-500">Premium:</span> <span className="font-bold text-blue-600">{premium} MMK</span></div>
               </div>
             </div>
 
@@ -589,7 +589,7 @@ export default function CheckoutFlow() {
             
             <div className="bg-blue-50 p-4 rounded-md mb-6 border border-blue-100 flex justify-between items-center">
               <span className="text-blue-900 font-medium">Total to pay today</span>
-              <span className="text-2xl font-bold text-blue-700">${premium}</span>
+              <span className="text-2xl font-bold text-blue-700">{premium} MMK</span>
             </div>
 
             <div className="space-y-4">
@@ -621,7 +621,7 @@ export default function CheckoutFlow() {
                 disabled={loading}
                 className="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700 flex items-center disabled:opacity-50"
               >
-                {loading ? 'Processing...' : `Pay $${premium}`}
+                {loading ? 'Processing...' : `Pay ${premium} MMK`}
               </button>
             </div>
           </form>

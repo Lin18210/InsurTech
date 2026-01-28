@@ -136,7 +136,7 @@ export default function AdminClaimsDashboard() {
                   )}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-gray-900 dark:text-white">
-                  ${claim.amount}
+                  {claim.amount} MMK
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-center">
                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
