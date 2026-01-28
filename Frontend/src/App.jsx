@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Login from './pages/Auth/Login'
 import Register from './pages/Auth/Register'
 import { AuthProvider } from './context/AuthContext'
+import { LanguageProvider } from './context/LanguageContext'
 import Products from './pages/Products'
 import CustomerDashboard from './pages/Dashboard'
 import ClaimsCenter from './pages/ClaimsCenter'
@@ -19,6 +20,7 @@ import Contact from './pages/Contact'
 
 function App() {
   return (
+    <LanguageProvider>
     <AuthProvider>
       <Router>
         <ScrollToTop />
@@ -51,6 +53,7 @@ function App() {
         </div>
       </Router>
     </AuthProvider>
+    </LanguageProvider>
   )
 }
 

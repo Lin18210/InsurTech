@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function Footer() {
+  const { t } = useLanguage()
+  
   return (
     <footer className="bg-gray-900 text-gray-400 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,32 +18,32 @@ export default function Footer() {
               
             </div>
             <p className="text-sm max-w-md">
-              Providing trusted insurance solutions since 2009. We're committed to protecting what matters most to you and your family.
+              {t('footerDescription')}
             </p>
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-4">Products</h4>
+            <h4 className="text-white font-semibold mb-4">{t('products')}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/products?category=health" className="hover:text-white transition">Health Insurance</Link></li>
-              <li><Link to="/products?category=life" className="hover:text-white transition">Life Insurance</Link></li>
-              <li><Link to="/products?category=auto" className="hover:text-white transition">Auto Insurance</Link></li>
-              <li><Link to="/products?category=property" className="hover:text-white transition">Home Insurance</Link></li>
+              <li><Link to="/products?category=health" className="hover:text-white transition">{t('healthInsurance')}</Link></li>
+              <li><Link to="/products?category=life" className="hover:text-white transition">{t('lifeInsurance')}</Link></li>
+              <li><Link to="/products?category=auto" className="hover:text-white transition">{t('autoInsurance')}</Link></li>
+              <li><Link to="/products?category=property" className="hover:text-white transition">{t('homeInsurance')}</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="text-white font-semibold mb-4">Company</h4>
+            <h4 className="text-white font-semibold mb-4">{t('company')}</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/about" className="hover:text-white transition">About Us</Link></li>
-              <li><Link to="/contact" className="hover:text-white transition">Contact</Link></li>
-              <li><Link to="/products" className="hover:text-white transition">All Products</Link></li>
+              <li><Link to="/about" className="hover:text-white transition">{t('aboutUs')}</Link></li>
+              <li><Link to="/contact" className="hover:text-white transition">{t('contact')}</Link></li>
+              <li><Link to="/products" className="hover:text-white transition">{t('allProducts')}</Link></li>
             </ul>
           </div>
         </div>
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-          <p>© {new Date().getFullYear()} W&N Insurance. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} W&N Insurance. {t('allRightsReserved')}</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition">Terms of Service</a>
+            <a href="#" className="hover:text-white transition">{t('privacyPolicy')}</a>
+            <a href="#" className="hover:text-white transition">{t('termsOfService')}</a>
           </div>
         </div>
       </div>

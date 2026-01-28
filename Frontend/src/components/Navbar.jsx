@@ -1,6 +1,7 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { LogOut, Shield, User, Menu, X, ChevronDown, Heart, Car, Home, Users, Briefcase } from 'lucide-react'
+import { useLanguage } from '../context/LanguageContext'
+import { LogOut, Shield, User, Menu, X, ChevronDown, Heart, Car, Home, Users, Briefcase, Globe } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 
 // Product categories for dropdown
@@ -14,6 +15,7 @@ const productCategories = [
 
 export default function Navbar() {
   const { user, profile, logout, isAdmin } = useAuth()
+  const { language, toggleLanguage, t } = useLanguage()
   const navigate = useNavigate()
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -72,14 +74,14 @@ export default function Navbar() {
   }
 
   const navLinks = [
-    { to: '/', label: 'Home', show: true },
-    { to: '/products', label: 'Products', show: true, hasDropdown: true },
-    { to: '/about', label: 'About Us', show: true },
-    { to: '/contact', label: 'Contact', show: true },
-    { to: '/dashboard', label: 'Dashboard', show: user && !isAdmin },
-    { to: '/claims', label: 'Claims', show: user && !isAdmin },
-    { to: '/admin', label: 'Admin', show: isAdmin, isAdmin: true },
-    { to: '/admin/claims', label: 'Manage Claims', show: isAdmin },
+    { to: '/', label: t('home'), show: true },
+    { to: '/products', label: t('products'), show: true, hasDropdown: true },
+    { to: '/about', label: t('aboutUs'), show: true },
+    { to: '/contact', label: t('contact'), show: true },
+    { to: '/dashboard', label: t('dashboard'), show: user && !isAdmin },
+    { to: '/claims', label: t('claims'), show: user && !isAdmin },
+    { to: '/admin', label: t('admin'), show: isAdmin, isAdmin: true },
+    { to: '/admin/claims', label: t('manageClaims'), show: isAdmin },
   ]
 
   const isActive = (path) => location.pathname === path
@@ -106,9 +108,14 @@ export default function Navbar() {
             <div className="flex space-x-1">
               {navLinks.filter(link => link.show).map((link) => (
                 link.hasDropdown ? (
-                  <div key={link.to} className="relative" ref={productsDropdownRef}>
+                  <div 
+                    key={link.to} 
+                    className="relative group"
+                    ref={productsDropdownRef}
+                    onMouseEnter={() => setIsProductsDropdownOpen(true)}
+                    onMouseLeave={() => setIsProductsDropdownOpen(false)}
+                  >
                     <button
-                      onClick={() => setIsProductsDropdownOpen(!isProductsDropdownOpen)}
                       className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                         isActive(link.to) || location.pathname.startsWith('/products')
                           ? 'text-sky-600 bg-sky-50' 
@@ -116,35 +123,48 @@ export default function Navbar() {
                       }`}
                     >
                       {link.label}
-                      <ChevronDown className={`ml-1 w-4 h-4 transition-transform ${isProductsDropdownOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`ml-1 w-4 h-4 transition-transform duration-300 ${isProductsDropdownOpen ? 'rotate-180' : ''}`} />
                     </button>
                     
-                    {isProductsDropdownOpen && (
-                      <div className="absolute left-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 animate-scaleIn z-50">
-                        <Link
-                          to="/products"
-                          onClick={() => setIsProductsDropdownOpen(false)}
-                          className="flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors"
-                        >
-                          <Shield className="w-5 h-5 mr-3 text-slate-400" />
-                          All Products
-                        </Link>
-                        <div className="border-t border-slate-100 my-1"></div>
-                        {productCategories.map((category) => {
-                          const CategoryIcon = category.icon
-                          return (
-                            <button
-                              key={category.key}
-                              onClick={() => handleProductCategoryClick(category.key)}
-                              className="flex items-center w-full px-4 py-3 text-sm text-slate-700 hover:bg-sky-50 hover:text-sky-600 transition-colors"
-                            >
-                              <CategoryIcon className="w-5 h-5 mr-3 text-slate-400" />
-                              {category.label} Insurance
-                            </button>
-                          )
-                        })}
+                    {/* Dropdown with smooth animation - pt-2 creates invisible bridge for hover */}
+                    <div className={`absolute left-1/2 -translate-x-1/2 pt-2 w-56 z-50 transition-all duration-300 origin-top ${
+                      isProductsDropdownOpen 
+                        ? 'opacity-100 scale-100 translate-y-0' 
+                        : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+                    }`}>
+                      <div className="bg-white rounded-xl shadow-2xl border border-slate-200 py-2 overflow-hidden">
+                      <Link
+                        to="/products"
+                        onClick={() => setIsProductsDropdownOpen(false)}
+                        className={`flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-600 transition-all duration-300 group/item ${
+                          isProductsDropdownOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                        }`}
+                        style={{ transitionDelay: isProductsDropdownOpen ? '50ms' : '0ms' }}
+                      >
+                        <Shield className="w-5 h-5 mr-3 text-slate-400 group-hover/item:text-sky-500 transition-colors" />
+                        <span>{t('allProducts')}</span>
+                      </Link>
+                      <div className="border-t border-slate-100 my-1"></div>
+                      {productCategories.map((category, index) => {
+                        const CategoryIcon = category.icon
+                        return (
+                          <button
+                            key={category.key}
+                            onClick={() => handleProductCategoryClick(category.key)}
+                            className={`flex items-center w-full px-4 py-3 text-sm text-slate-700 hover:bg-gradient-to-r hover:from-sky-50 cursor-pointer hover:to-blue-50 hover:text-sky-600 transition-all duration-300 group/item ${
+                              isProductsDropdownOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                            }`}
+                            style={{ 
+                              transitionDelay: isProductsDropdownOpen ? `${(index + 1) * 60}ms` : '0ms'
+                            }}
+                          >
+                            <CategoryIcon className="w-5 h-5 mr-3 text-slate-400 group-hover/item:text-sky-500 group-hover/item:scale-110 transition-all" />
+                            <span>{t(`${category.key}Insurance`)}</span>
+                          </button>
+                        )
+                      })}
                       </div>
-                    )}
+                    </div>
                   </div>
                 ) : (
                   <Link
@@ -167,6 +187,18 @@ export default function Navbar() {
 
           {/* Right Side */}
           <div className="flex items-center space-x-4">
+            {/* Language Toggle Button */}
+            <button
+              onClick={toggleLanguage}
+              className="hidden md:flex items-center space-x-2 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-all duration-300 group"
+              title={language === 'en' ? 'Switch to Myanmar' : 'Switch to English'}
+            >
+              <Globe className="w-4 h-4 text-slate-600 group-hover:rotate-180 transition-transform duration-500" />
+              <span className="text-sm font-medium text-slate-700">
+                {language === 'en' ? 'EN' : 'MM'}
+              </span>
+            </button>
+            
             {user ? (
               <div className="hidden md:block relative" ref={menuRef}>
                 <button
@@ -185,7 +217,7 @@ export default function Navbar() {
                 {isMenuOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-slate-200 py-1 animate-scaleIn">
                     <div className="px-4 py-3 border-b border-slate-100">
-                      <p className="text-xs text-slate-500">Signed in as</p>
+                      <p className="text-xs text-slate-500">{t('signedInAs')}</p>
                       <p className="text-sm font-medium text-slate-900 truncate">{user.email}</p>
                     </div>
                     <Link
@@ -194,7 +226,7 @@ export default function Navbar() {
                       className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                     >
                       <User className="w-4 h-4 mr-3 text-slate-400" />
-                      My Profile
+                      {t('myProfile')}
                     </Link>
                     <Link
                       to="/dashboard"
@@ -202,7 +234,7 @@ export default function Navbar() {
                       className="flex items-center px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
                     >
                       <Shield className="w-4 h-4 mr-3 text-slate-400" />
-                      Dashboard
+                      {t('dashboard')}
                     </Link>
                     <div className="border-t border-slate-100 mt-1 pt-1">
                       <button
@@ -210,7 +242,7 @@ export default function Navbar() {
                         className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                       >
                         <LogOut className="w-4 h-4 mr-3" />
-                        Sign Out
+                        {t('signOut')}
                       </button>
                     </div>
                   </div>
@@ -219,10 +251,10 @@ export default function Navbar() {
             ) : (
               <div className="hidden md:flex items-center space-x-3">
                 <Link to="/login" className="text-sm font-medium text-slate-600 hover:text-slate-900 px-4 py-2">
-                  Sign In
+                  {t('signIn')}
                 </Link>
                 <Link to="/register" className="btn-primary text-sm font-semibold text-white px-5 py-2.5 rounded-lg">
-                  Get Started
+                  {t('getStarted')}
                 </Link>
               </div>
             )}
@@ -264,7 +296,7 @@ export default function Navbar() {
                       className="flex items-center px-3 py-2 text-sm text-slate-600 hover:text-sky-600 rounded-lg hover:bg-sky-50"
                     >
                       <Shield className="w-4 h-4 mr-2" />
-                      All Products
+                      All Plans
                     </Link>
                     {productCategories.map((category) => {
                       const CategoryIcon = category.icon
@@ -297,6 +329,20 @@ export default function Navbar() {
             )
           ))}
           
+          {/* Mobile Language Toggle */}
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center justify-between w-full px-4 py-3 mt-2 rounded-lg text-sm font-medium bg-slate-100 hover:bg-slate-200 transition-colors"
+          >
+            <div className="flex items-center">
+              <Globe className="w-5 h-5 mr-3 text-slate-600" />
+              <span className="text-slate-700">{language === 'en' ? 'Language' : 'ဘာသာစကား'}</span>
+            </div>
+            <span className="px-2 py-1 bg-sky-100 text-sky-700 rounded-md text-xs font-bold">
+              {language === 'en' ? 'EN' : 'MM'}
+            </span>
+          </button>
+          
           {user ? (
             <div className="mt-4 pt-4 border-t border-slate-100">
               <div className="flex items-center px-4 py-3">
@@ -314,14 +360,14 @@ export default function Navbar() {
                 className="flex items-center px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg"
               >
                 <User className="w-5 h-5 mr-3 text-slate-400" />
-                My Profile
+                {t('myProfile')}
               </Link>
               <button
                 onClick={handleLogout}
                 className="flex items-center w-full px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg"
               >
                 <LogOut className="w-5 h-5 mr-3" />
-                Sign Out
+                {t('signOut')}
               </button>
             </div>
           ) : (
@@ -331,14 +377,14 @@ export default function Navbar() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-center px-4 py-3 text-slate-700 hover:bg-slate-100 rounded-lg font-medium"
               >
-                Sign In
+                {t('signIn')}
               </Link>
               <Link
                 to="/register"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="block text-center px-4 py-3 bg-gradient-to-r from-sky-400 to-sky-500 text-white rounded-lg font-semibold shadow-md"
               >
-                Get Started
+                {t('getStarted')}
               </Link>
             </div>
           )}

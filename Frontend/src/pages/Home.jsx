@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Shield, Heart, Clock, Headphones, CheckCircle, ArrowRight, Star, Users, TrendingUp, FileCheck, Award, Phone, Sparkles, Zap, Car, Home as HomeIcon, Umbrella, DollarSign, Activity, Plane, Briefcase } from 'lucide-react'
 import useScrollAnimation from '../utils/useScrollAnimation'
 import heroBanner from '../assets/Banner 3.png'
+import { useLanguage } from '../context/LanguageContext'
 
 // Features
 const features = [
@@ -76,6 +77,7 @@ function AnimatedSection({ children, animation = 'fadeInUp', delay = 0, classNam
 }
 
 export default function Home() {
+  const { t, isMyanmar } = useLanguage()
   const [featuresRef, featuresInView] = useScrollAnimation()
   const [howItWorksRef, howItWorksInView] = useScrollAnimation()
   const [testimonialsRef, testimonialsInView] = useScrollAnimation()
@@ -140,17 +142,16 @@ export default function Home() {
             <div>
               <div className="animate-fadeInDown opacity-0-start inline-flex items-center px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6 border border-white/20">
                 <Award className="w-4 h-4 mr-2" />
-                Rated #1 Insurance Provider 2024
+                {isMyanmar ? '၂၀၂၄ ခုနှစ် နံပါတ် ၁ အာမခံပံ့ပိုးသူ' : 'Rated #1 Insurance Provider 2024'}
               </div>
 
               <h1 className="animate-slideUp opacity-0-start delay-100 text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Insurance You Can
-                <span className="text-sky-100"> Trust</span>
+                {isMyanmar ? 'ယုံကြည်နိုင်သော' : 'Insurance You Can'}
+                <span className="text-sky-100"> {isMyanmar ? 'အာမခံ' : 'Trust'}</span>
               </h1>
 
               <p className="animate-slideUp opacity-0-start delay-200 text-lg text-sky-100 mb-8 max-w-lg">
-                Protecting families and businesses with comprehensive insurance solutions. 
-                Simple, transparent, and always there when you need us.
+                {isMyanmar ? 'ပြည့်စုံသော အာမခံဖြေရှင်းချက်များဖြင့် မိသားစုများနှင့် စီးပွားရေးလုပ်ငန်းများကို ကာကွယ်ပေးပါသည်။ ရိုးရှင်း၊ ပွင့်လင်းမြင်သာပြီး သင်လိုအပ်သည့်အခါ အမြဲရှိနေပါသည်။' : 'Protecting families and businesses with comprehensive insurance solutions. Simple, transparent, and always there when you need us.'}
               </p>
 
               <div className="animate-fadeInUp opacity-0-start delay-300 flex flex-col sm:flex-row gap-4 mb-8">
@@ -158,7 +159,7 @@ export default function Home() {
                   to="/products" 
                   className="btn-primary inline-flex items-center justify-center px-8 py-4 text-white font-semibold rounded-xl shadow-lg"
                 >
-                  Get a Quote
+                  {t('getQuote')}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
                 <Link 
@@ -166,7 +167,7 @@ export default function Home() {
                   className="inline-flex items-center justify-center px-8 py-4 bg-sky-600/30 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/20 transition-all hover:scale-105"
                 >
                   <Phone className="mr-2 w-5 h-5" />
-                  Talk to an Expert
+                  {isMyanmar ? 'ကျွမ်းကျင်သူနှင့် စကားပြောပါ' : 'Talk to an Expert'}
                 </Link>
               </div>
 
@@ -174,11 +175,11 @@ export default function Home() {
               <div className="animate-popIn opacity-0-start delay-500 flex items-center gap-6 text-sm text-sky-100">
                 <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white/20 transition-all">
                   <CheckCircle className="w-5 h-5 mr-2 text-green-300" />
-                  No hidden fees
+                  {isMyanmar ? 'လျှို့ဝှက်အခကြေးငွေမရှိ' : 'No hidden fees'}
                 </div>
                 <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white/20 transition-all">
                   <CheckCircle className="w-5 h-5 mr-2 text-green-300" />
-                  Cancel anytime
+                  {isMyanmar ? 'အချိန်မရွေး ပယ်ဖျက်နိုင်' : 'Cancel anytime'}
                 </div>
               </div>
             </div>
@@ -263,13 +264,13 @@ export default function Home() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-600 text-sm font-medium mb-4">
               <Sparkles className="w-4 h-4 mr-2" />
-              Special Deals
+              {t('specialOffers')}
             </div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Exclusive Insurance Offers
+              {t('exclusiveDeals')}
             </h3>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Take advantage of our special promotions designed to give you the best protection at unbeatable prices.
+              {t('exclusiveDealsDesc')}
             </p>
           </div>
 
@@ -334,7 +335,7 @@ export default function Home() {
                 <p className="text-sm text-gray-600">{deal.desc}</p>
                 
                 <div className="mt-4 flex items-center text-sky-600 font-medium text-sm group-hover:text-sky-700">
-                  Learn More
+                  {t('learnMore')}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
               </Link>
@@ -347,7 +348,7 @@ export default function Home() {
               to="/products" 
               className="btn-primary inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transition-transform"
             >
-              View All Offers
+              {t('viewAll')}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
           </div>
@@ -368,13 +369,13 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-bold mb-3 animate-pulse">
-                🔥 LIMITED TIME OFFER
+                🔥 {t('limitedTimeOffer')}
               </div>
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                Get 25% OFF Your First Year!
+                {t('getDiscount')}
               </h3>
               <p className="text-white/90 text-lg">
-                New customers save big on all insurance plans. Don't miss out!
+                {t('discountDesc')}
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -382,12 +383,12 @@ export default function Home() {
                 to="/products" 
                 className="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-600 font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all"
               >
-                Claim Your Discount
+                {t('claimDiscount')}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <div className="flex items-center justify-center text-white font-semibold">
                 <Clock className="w-5 h-5 mr-2" />
-                Ends in 48 hours!
+                {t('endsIn')}
               </div>
             </div>
           </div>
@@ -400,13 +401,13 @@ export default function Home() {
           <div className={`text-center max-w-3xl mx-auto mb-16 ${featuresInView ? 'animate-bounceInUp' : 'opacity-0'}`}>
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-orange-600 text-sm font-medium mb-4">
               <Shield className="w-4 h-4 mr-2" />
-              Our Services
+              {t('ourServices')}
             </div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Complete Protection for What Matters Most
+              {t('completeProtection')}
             </h3>
             <p className="text-lg text-gray-600">
-              We offer a full range of insurance products designed to give you peace of mind.
+              {t('completeProtectionDesc')}
             </p>
           </div>
 
@@ -440,10 +441,10 @@ export default function Home() {
           <div className={`text-center mb-16 ${howItWorksInView ? 'animate-blurIn' : 'opacity-0'}`}>
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-4">
               <Zap className="w-4 h-4 mr-2" />
-              Simple Process
+              {t('howItWorks')}
             </div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Get Covered in Minutes
+              {t('simpleProcess')}
             </h3>
           </div>
 
@@ -477,7 +478,7 @@ export default function Home() {
               to="/products" 
               className="btn-primary inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl shadow-lg"
             >
-              Start Your Application
+              {isMyanmar ? 'လျှောက်လွှာစတင်ရန်' : 'Start Your Application'}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
           </div>
@@ -490,10 +491,10 @@ export default function Home() {
           <div className={`text-center mb-16 ${testimonialsInView ? 'animate-fadeInDown' : 'opacity-0'}`}>
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-4">
               <Star className="w-4 h-4 mr-2" />
-              Testimonials
+              {t('testimonials')}
             </div>
             <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
-              What Our Clients Say
+              {t('whatCustomersSay')}
             </h3>
           </div>
 
@@ -579,24 +580,24 @@ export default function Home() {
         
         <div className={`relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center ${ctaInView ? 'animate-scaleInBounce' : 'opacity-0'}`}>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Get Protected?
+            {isMyanmar ? 'အကာအကွယ်ရယူဖို့ အဆင်သင့်ဖြစ်ပြီလား?' : 'Ready to Get Protected?'}
           </h2>
           <p className="text-xl text-orange-100 mb-8">
-            Join thousands of satisfied customers. Get your free quote in under 2 minutes.
+            {isMyanmar ? 'ကျေနပ်သော ဖောက်သည်ထောင်ပေါင်းများစွာနှင့် ပူးပေါင်းပါ။ ၂ မိနစ်အတွင်း အခမဲ့ စျေးနှုန်းရယူပါ။' : 'Join thousands of satisfied customers. Get your free quote in under 2 minutes.'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
               to="/products" 
               className="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-600 font-semibold rounded-xl shadow-lg hover:shadow-xl hover:bg-orange-50 transition-all hover:scale-105"
             >
-              Get Your Quote
+              {t('getQuote')}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>
             <Link 
               to="/products" 
               className="inline-flex items-center justify-center px-8 py-4 bg-orange-600/30 backdrop-blur-sm text-white font-semibold rounded-xl border-2 border-white/30 hover:bg-white/20 transition-all hover:scale-105"
             >
-              View All Plans
+              {isMyanmar ? 'အစီအစဉ်အားလုံး ကြည့်ရှုရန်' : 'View All Plans'}
             </Link>
           </div>
         </div>
