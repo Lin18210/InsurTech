@@ -391,13 +391,13 @@ export default function AboutUs() {
                 {whyChooseUs.map((item, index) => (
                   <div 
                     key={index} 
-                    className={`flex items-start bg-white p-4 rounded-xl border border-sky-100 hover:shadow-md transition-all hover:-translate-y-1 ${
+                    className={`flex items-start bg-white dark:bg-gray-800 p-4 rounded-xl border border-sky-100 dark:border-gray-700 hover:shadow-md transition-all hover:-translate-y-1 ${
                       whyUsInView ? 'animate-popIn' : 'opacity-0'
                     }`}
                     style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                   >
-                    <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5 mr-3">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/50 flex items-center justify-center flex-shrink-0 mt-0.5 mr-3">
+                      <CheckCircle className="w-4 h-4 text-green-500 dark:text-green-400" />
                     </div>
                     <span className="text-gray-700 dark:text-gray-300 text-sm">{item}</span>
                   </div>
