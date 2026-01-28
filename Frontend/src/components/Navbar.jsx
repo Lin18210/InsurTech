@@ -89,18 +89,21 @@ export default function Navbar() {
       scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-shrink-0">
             <Link to="/" onClick={(e) => handleNavClick('/', e)} className="flex items-center group">
-              <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center shadow-md group-hover:shadow-lg transition-all">
-                <Shield className="h-5 w-5 text-white" />
-              </div>
-              <span className="ml-2 text-xl font-bold text-slate-900">InsurTech</span>
+              <img 
+                src="/W&N Logo.png" 
+                alt="W&N Insurance Logo" 
+                className="w-16 h-16 object-contain group-hover:scale-110 transition-transform drop-shadow-md"
+              />
             </Link>
+          </div>
             
-            {/* Desktop Nav */}
-            <div className="hidden md:flex md:ml-10 space-x-1">
+          {/* Desktop Nav - Centered */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <div className="flex space-x-1">
               {navLinks.filter(link => link.show).map((link) => (
                 link.hasDropdown ? (
                   <div key={link.to} className="relative" ref={productsDropdownRef}>

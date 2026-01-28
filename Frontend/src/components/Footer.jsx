@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { Shield } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -8,10 +7,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           <div className="md:col-span-2">
             <div className="flex items-center mb-4 group">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center group-hover:rotate-12 transition-transform">
-                <Shield className="h-6 w-6 text-white" />
-              </div>
-              <span className="ml-3 text-xl font-bold text-white">InsurTech</span>
+              <img 
+                src="/W&N Logo.png" 
+                alt="W&N Insurance Logo" 
+                className="w-24 h-24 object-contain group-hover:scale-110 transition-transform drop-shadow-lg"
+              />
+              
             </div>
             <p className="text-sm max-w-md">
               Providing trusted insurance solutions since 2009. We're committed to protecting what matters most to you and your family.
@@ -36,7 +37,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
-          <p>© {new Date().getFullYear()} InsurTech. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} W&N Insurance. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition">Privacy Policy</a>
             <a href="#" className="hover:text-white transition">Terms of Service</a>

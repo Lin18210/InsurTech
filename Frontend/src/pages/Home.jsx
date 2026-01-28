@@ -257,84 +257,7 @@ export default function Home() {
         </div>
       </section>
 
-
-      {/* Features Section - Staggered fade in from left/right */}
-      <section ref={featuresRef} className="py-24 bg-gradient-to-b from-indigo-50 to-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center max-w-3xl mx-auto mb-16 ${featuresInView ? 'animate-bounceInUp' : 'opacity-0'}`}>
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-orange-600 text-sm font-medium mb-4">
-              <Shield className="w-4 h-4 mr-2" />
-              Our Services
-            </div>
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Complete Protection for What Matters Most
-            </h3>
-            <p className="text-lg text-gray-600">
-              We offer a full range of insurance products designed to give you peace of mind.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <div 
-                key={index}
-                className={`group p-8 bg-white rounded-2xl border border-sky-100 hover:border-sky-300 hover:shadow-xl transition-all duration-500 card-animated ${
-                  featuresInView ? (index % 2 === 0 ? 'animate-fadeInLeft' : 'animate-fadeInRight') : 'opacity-0'
-                }`}
-                style={{ animationDelay: `${index * 0.15}s` }}
-              >
-                <div className={`w-16 h-16 rounded-2xl text-white flex items-center justify-center mb-6 shadow-lg transition-all group-hover:scale-110 group-hover:rotate-3 ${index === 0 ? 'bg-gradient-to-br from-rose-400 to-pink-500 group-hover:shadow-pink-200' : index === 1 ? 'bg-gradient-to-br from-amber-400 to-orange-500 group-hover:shadow-orange-200' : index === 2 ? 'bg-gradient-to-br from-emerald-400 to-teal-500 group-hover:shadow-teal-200' : 'bg-gradient-to-br from-purple-400 to-indigo-500 group-hover:shadow-indigo-200'}`}>
-                  <feature.icon className="w-8 h-8" />
-                </div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 🎉 Special Promotional Banner */}
-      <section className="py-12 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-2xl animate-float"></div>
-          <div className="absolute bottom-0 right-0 w-32 h-32 bg-yellow-300/20 rounded-full blur-xl animate-floatSlow"></div>
-          <Sparkles className="absolute top-4 right-10 w-8 h-8 text-white/30 animate-pulse" />
-          <Star className="absolute bottom-4 left-10 w-6 h-6 text-yellow-200/40 animate-bounce" />
-        </div>
-        
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-bold mb-3 animate-pulse">
-                🔥 LIMITED TIME OFFER
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
-                Get 25% OFF Your First Year!
-              </h3>
-              <p className="text-white/90 text-lg">
-                New customers save big on all insurance plans. Don't miss out!
-              </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link 
-                to="/products" 
-                className="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-600 font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all"
-              >
-                Claim Your Discount
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <div className="flex items-center justify-center text-white font-semibold">
-                <Clock className="w-5 h-5 mr-2" />
-                Ends in 48 hours!
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 💎 Insurance Deals Showcase */}
+            {/* 💎 Insurance Deals Showcase */}
       <AnimatedSection className="py-20 bg-gradient-to-b from-white to-sky-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -430,6 +353,82 @@ export default function Home() {
           </div>
         </div>
       </AnimatedSection>
+
+      {/* 🎉 Special Promotional Banner */}
+      <section className="py-12 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-2xl animate-float"></div>
+          <div className="absolute bottom-0 right-0 w-32 h-32 bg-yellow-300/20 rounded-full blur-xl animate-floatSlow"></div>
+          <Sparkles className="absolute top-4 right-10 w-8 h-8 text-white/30 animate-pulse" />
+          <Star className="absolute bottom-4 left-10 w-6 h-6 text-yellow-200/40 animate-bounce" />
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-bold mb-3 animate-pulse">
+                🔥 LIMITED TIME OFFER
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                Get 25% OFF Your First Year!
+              </h3>
+              <p className="text-white/90 text-lg">
+                New customers save big on all insurance plans. Don't miss out!
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link 
+                to="/products" 
+                className="inline-flex items-center justify-center px-8 py-4 bg-white text-orange-600 font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+              >
+                Claim Your Discount
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
+              <div className="flex items-center justify-center text-white font-semibold">
+                <Clock className="w-5 h-5 mr-2" />
+                Ends in 48 hours!
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section - Staggered fade in from left/right */}
+      <section ref={featuresRef} className="py-24 bg-gradient-to-b from-indigo-50 to-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className={`text-center max-w-3xl mx-auto mb-16 ${featuresInView ? 'animate-bounceInUp' : 'opacity-0'}`}>
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-orange-600 text-sm font-medium mb-4">
+              <Shield className="w-4 h-4 mr-2" />
+              Our Services
+            </div>
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Complete Protection for What Matters Most
+            </h3>
+            <p className="text-lg text-gray-600">
+              We offer a full range of insurance products designed to give you peace of mind.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div 
+                key={index}
+                className={`group p-8 bg-white rounded-2xl border border-sky-100 hover:border-sky-300 hover:shadow-xl transition-all duration-500 card-animated ${
+                  featuresInView ? (index % 2 === 0 ? 'animate-fadeInLeft' : 'animate-fadeInRight') : 'opacity-0'
+                }`}
+                style={{ animationDelay: `${index * 0.15}s` }}
+              >
+                <div className={`w-16 h-16 rounded-2xl text-white flex items-center justify-center mb-6 shadow-lg transition-all group-hover:scale-110 group-hover:rotate-3 ${index === 0 ? 'bg-gradient-to-br from-rose-400 to-pink-500 group-hover:shadow-pink-200' : index === 1 ? 'bg-gradient-to-br from-amber-400 to-orange-500 group-hover:shadow-orange-200' : index === 2 ? 'bg-gradient-to-br from-emerald-400 to-teal-500 group-hover:shadow-teal-200' : 'bg-gradient-to-br from-purple-400 to-indigo-500 group-hover:shadow-indigo-200'}`}>
+                  <feature.icon className="w-8 h-8" />
+                </div>
+                <h4 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* How It Works - Flip in animation */}
       <section ref={howItWorksRef} className="py-24 bg-white relative overflow-hidden">

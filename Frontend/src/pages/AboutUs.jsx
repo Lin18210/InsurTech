@@ -493,6 +493,57 @@ export default function AboutUs() {
               </div>
             ))}
           </div>
+
+          {/* Headquarters Map */}
+          <div className="mt-16">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-4">
+                <MapPin className="w-4 h-4 mr-2" />
+                Our Headquarters
+              </div>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Visit Our Office</h3>
+              <p className="text-gray-600">73^110 Manawhari Street, Chanmyathasi Township, Mandalay</p>
+            </div>
+            
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              {/* Map Container */}
+              <div className="aspect-video md:aspect-[21/9] w-full bg-sky-100">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14658.547774870396!2d96.0789!3d21.9588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30cb6d9d1d40da67%3A0x5bc6b3a7d2e7c4b3!2sChanmyathasi%20Township%2C%20Mandalay%2C%20Myanmar!5e0!3m2!1sen!2s!4v1706380800000!5m2!1sen!2s"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="InsurTech Headquarters Location"
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              
+              {/* Address Overlay Card */}
+              <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 bg-white/95 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-xl max-w-sm">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center flex-shrink-0">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 mb-1">InsurTech HQ</h4>
+                    <p className="text-sm text-gray-600 mb-2">73^110 Manawhari Street<br/>Chanmyathasi Township, Mandalay</p>
+                    <a 
+                      href="https://www.google.com/maps/search/Chanmyathasi+Township+Mandalay+Myanmar"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-sky-600 text-sm font-medium hover:text-sky-700"
+                    >
+                      Get Directions
+                      <ArrowRight className="w-4 h-4 ml-1" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
