@@ -1,7 +1,8 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useLanguage } from '../context/LanguageContext'
-import { LogOut, Shield, User, Menu, X, ChevronDown, Heart, Car, Home, Users, Briefcase, Globe } from 'lucide-react'
+import { useTheme } from '../context/ThemeContext'
+import { LogOut, Shield, User, Menu, X, ChevronDown, Heart, Car, Home, Users, Briefcase, Globe, Moon, Sun } from 'lucide-react'
 import { useState, useRef, useEffect } from 'react'
 
 // Product categories for dropdown
@@ -16,6 +17,7 @@ const productCategories = [
 export default function Navbar() {
   const { user, profile, logout, isAdmin } = useAuth()
   const { language, toggleLanguage, t } = useLanguage()
+  const { isDarkMode, toggleDarkMode } = useTheme()
   const navigate = useNavigate()
   const location = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -88,7 +90,7 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-md' : 'bg-white/95 backdrop-blur-sm'
+      scrolled ? 'bg-white dark:bg-gray-800 shadow-md' : 'bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
@@ -118,8 +120,8 @@ export default function Navbar() {
                     <button
                       className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                         isActive(link.to) || location.pathname.startsWith('/products')
-                          ? 'text-sky-600 bg-sky-50' 
-                          : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                          ? 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/30' 
+                          : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700'
                       }`}
                     >
                       {link.label}
@@ -132,33 +134,33 @@ export default function Navbar() {
                         ? 'opacity-100 scale-100 translate-y-0' 
                         : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
                     }`}>
-                      <div className="bg-white rounded-xl shadow-2xl border border-slate-200 py-2 overflow-hidden">
+                      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-slate-200 dark:border-gray-700 py-2 overflow-hidden">
                       <Link
                         to="/products"
                         onClick={() => setIsProductsDropdownOpen(false)}
-                        className={`flex items-center px-4 py-3 text-sm text-slate-700 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 hover:text-sky-600 transition-all duration-300 group/item ${
+                        className={`flex items-center px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-gradient-to-r hover:from-sky-50 hover:to-blue-50 dark:hover:from-sky-900/50 dark:hover:to-blue-900/50 hover:text-sky-600 dark:hover:text-sky-400 transition-all duration-300 group/item ${
                           isProductsDropdownOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
                         }`}
                         style={{ transitionDelay: isProductsDropdownOpen ? '50ms' : '0ms' }}
                       >
-                        <Shield className="w-5 h-5 mr-3 text-slate-400 group-hover/item:text-sky-500 transition-colors" />
+                        <Shield className="w-5 h-5 mr-3 text-slate-400 dark:text-slate-500 group-hover/item:text-sky-500 transition-colors" />
                         <span>{t('allProducts')}</span>
                       </Link>
-                      <div className="border-t border-slate-100 my-1"></div>
+                      <div className="border-t border-slate-100 dark:border-slate-700 my-1"></div>
                       {productCategories.map((category, index) => {
                         const CategoryIcon = category.icon
                         return (
                           <button
                             key={category.key}
                             onClick={() => handleProductCategoryClick(category.key)}
-                            className={`flex items-center w-full px-4 py-3 text-sm text-slate-700 hover:bg-gradient-to-r hover:from-sky-50 cursor-pointer hover:to-blue-50 hover:text-sky-600 transition-all duration-300 group/item ${
+                            className={`flex items-center w-full px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-gradient-to-r hover:from-sky-50 cursor-pointer hover:to-blue-50 dark:hover:from-sky-900/50 dark:hover:to-blue-900/50 hover:text-sky-600 dark:hover:text-sky-400 transition-all duration-300 group/item ${
                               isProductsDropdownOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
                             }`}
                             style={{ 
                               transitionDelay: isProductsDropdownOpen ? `${(index + 1) * 60}ms` : '0ms'
                             }}
                           >
-                            <CategoryIcon className="w-5 h-5 mr-3 text-slate-400 group-hover/item:text-sky-500 group-hover/item:scale-110 transition-all" />
+                            <CategoryIcon className="w-5 h-5 mr-3 text-slate-400 dark:text-slate-500 group-hover/item:text-sky-500 group-hover/item:scale-110 transition-all" />
                             <span>{t(`${category.key}Insurance`)}</span>
                           </button>
                         )
@@ -172,10 +174,10 @@ export default function Navbar() {
                     to={link.to}
                     onClick={(e) => handleNavClick(link.to, e)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      link.isAdmin ? 'text-red-600 hover:bg-red-50' :
+                      link.isAdmin ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30' :
                       isActive(link.to) 
-                        ? 'text-sky-600 bg-sky-50' 
-                        : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                        ? 'text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/30' 
+                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700'
                     }`}
                   >
                     {link.label}
@@ -186,15 +188,28 @@ export default function Navbar() {
           </div>
 
           {/* Right Side */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
+            {/* Dark Mode Toggle Button */}
+            <button
+              onClick={toggleDarkMode}
+              className="hidden md:flex items-center justify-center w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all duration-300 group"
+              title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            >
+              {isDarkMode ? (
+                <Sun className="w-5 h-5 text-yellow-500 group-hover:rotate-180 transition-transform duration-500" />
+              ) : (
+                <Moon className="w-5 h-5 text-slate-600 group-hover:-rotate-12 transition-transform duration-300" />
+              )}
+            </button>
+            
             {/* Language Toggle Button */}
             <button
               onClick={toggleLanguage}
-              className="hidden md:flex items-center space-x-2 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-all duration-300 group"
+              className="hidden md:flex items-center space-x-2 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all duration-300 group"
               title={language === 'en' ? 'Switch to Myanmar' : 'Switch to English'}
             >
-              <Globe className="w-4 h-4 text-slate-600 group-hover:rotate-180 transition-transform duration-500" />
-              <span className="text-sm font-medium text-slate-700">
+              <Globe className="w-4 h-4 text-slate-600 dark:text-slate-300 group-hover:rotate-180 transition-transform duration-500" />
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
                 {language === 'en' ? 'EN' : 'MM'}
               </span>
             </button>
@@ -329,16 +344,34 @@ export default function Navbar() {
             )
           ))}
           
+          {/* Mobile Dark Mode Toggle */}
+          <button
+            onClick={toggleDarkMode}
+            className="flex items-center justify-between w-full px-4 py-3 mt-2 rounded-lg text-sm font-medium bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
+          >
+            <div className="flex items-center">
+              {isDarkMode ? (
+                <Sun className="w-5 h-5 mr-3 text-yellow-500" />
+              ) : (
+                <Moon className="w-5 h-5 mr-3 text-slate-600 dark:text-slate-300" />
+              )}
+              <span className="text-slate-700 dark:text-slate-200">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+            </div>
+            <span className={`px-2 py-1 rounded-md text-xs font-bold ${isDarkMode ? 'bg-yellow-100 text-yellow-700' : 'bg-slate-200 text-slate-600'}`}>
+              {isDarkMode ? '☀️' : '🌙'}
+            </span>
+          </button>
+          
           {/* Mobile Language Toggle */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center justify-between w-full px-4 py-3 mt-2 rounded-lg text-sm font-medium bg-slate-100 hover:bg-slate-200 transition-colors"
+            className="flex items-center justify-between w-full px-4 py-3 mt-2 rounded-lg text-sm font-medium bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
           >
             <div className="flex items-center">
-              <Globe className="w-5 h-5 mr-3 text-slate-600" />
-              <span className="text-slate-700">{language === 'en' ? 'Language' : 'ဘာသာစကား'}</span>
+              <Globe className="w-5 h-5 mr-3 text-slate-600 dark:text-slate-300" />
+              <span className="text-slate-700 dark:text-slate-200">{language === 'en' ? 'Language' : 'ဘာသာစကား'}</span>
             </div>
-            <span className="px-2 py-1 bg-sky-100 text-sky-700 rounded-md text-xs font-bold">
+            <span className="px-2 py-1 bg-sky-100 dark:bg-sky-900 text-sky-700 dark:text-sky-300 rounded-md text-xs font-bold">
               {language === 'en' ? 'EN' : 'MM'}
             </span>
           </button>

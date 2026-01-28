@@ -77,7 +77,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="bg-gradient-to-b from-sky-50 to-white">
+    <div className="bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       {/* Hero Section - Blur and slide animations */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         {/* Background image with overlay */}
@@ -125,18 +125,18 @@ export default function Contact() {
       </section>
 
       {/* Contact Form & Info Section - Slide animations */}
-      <section ref={formRef} className="py-24 bg-white overflow-hidden">
+      <section ref={formRef} className="py-24 bg-white dark:bg-gray-800 overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Form - Slide in from left */}
             <div className={`relative ${formInView ? 'animate-slideInLeft' : 'opacity-0'}`}>
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-100/50 to-sky-50/30 rounded-3xl -rotate-1"></div>
-              <div className="relative bg-white rounded-3xl p-8 lg:p-12 shadow-xl border border-sky-100">
+              <div className="absolute inset-0 bg-gradient-to-br from-sky-100/50 to-sky-50/30 dark:from-sky-900/50 dark:to-gray-800/30 rounded-3xl -rotate-1"></div>
+              <div className="relative bg-white dark:bg-gray-800 rounded-3xl p-8 lg:p-12 shadow-xl border border-sky-100 dark:border-gray-700">
                 <div className="flex items-center mb-6">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center mr-3">
                     <MessageSquare className="w-5 h-5" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900">Send Us a Message</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Send Us a Message</h2>
                 </div>
                 
                 {isSubmitted ? (
@@ -144,8 +144,8 @@ export default function Contact() {
                     <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-green-500 text-white flex items-center justify-center mx-auto mb-6 shadow-lg animate-pulseGlow">
                       <CheckCircle className="w-10 h-10" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Message Sent!</h3>
-                    <p className="text-gray-600 mb-6">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Message Sent!</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6">
                       Thank you for reaching out. We'll get back to you within 24 hours.
                     </p>
                     <button
@@ -159,7 +159,7 @@ export default function Contact() {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className={formInView ? 'animate-fadeInUp' : 'opacity-0'} style={{ animationDelay: '0.2s' }}>
-                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           First Name *
                         </label>
                         <input
@@ -169,12 +169,12 @@ export default function Contact() {
                           value={formData.firstName}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 rounded-xl border border-sky-200 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 hover:border-sky-300"
+                          className="w-full px-4 py-3 rounded-xl border border-sky-200 dark:border-gray-600 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 dark:bg-gray-700 dark:text-white hover:border-sky-300 dark:hover:border-sky-600"
                           placeholder="John"
                         />
                       </div>
                       <div className={formInView ? 'animate-fadeInUp' : 'opacity-0'} style={{ animationDelay: '0.25s' }}>
-                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Last Name *
                         </label>
                         <input
@@ -184,7 +184,7 @@ export default function Contact() {
                           value={formData.lastName}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 rounded-xl border border-sky-200 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 hover:border-sky-300"
+                          className="w-full px-4 py-3 rounded-xl border border-sky-200 dark:border-gray-600 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 dark:bg-gray-700 dark:text-white hover:border-sky-300 dark:hover:border-sky-600"
                           placeholder="Doe"
                         />
                       </div>
@@ -192,7 +192,7 @@ export default function Contact() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <div className={formInView ? 'animate-fadeInUp' : 'opacity-0'} style={{ animationDelay: '0.3s' }}>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Email Address *
                         </label>
                         <input
@@ -202,12 +202,12 @@ export default function Contact() {
                           value={formData.email}
                           onChange={handleChange}
                           required
-                          className="w-full px-4 py-3 rounded-xl border border-sky-200 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 hover:border-sky-300"
+                          className="w-full px-4 py-3 rounded-xl border border-sky-200 dark:border-gray-600 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 dark:bg-gray-700 dark:text-white hover:border-sky-300 dark:hover:border-sky-600"
                           placeholder="john@example.com"
                         />
                       </div>
                       <div className={formInView ? 'animate-fadeInUp' : 'opacity-0'} style={{ animationDelay: '0.35s' }}>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                           Phone Number
                         </label>
                         <input
@@ -216,14 +216,14 @@ export default function Contact() {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-xl border border-sky-200 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 hover:border-sky-300"
+                          className="w-full px-4 py-3 rounded-xl border border-sky-200 dark:border-gray-600 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 dark:bg-gray-700 dark:text-white hover:border-sky-300 dark:hover:border-sky-600"
                           placeholder="+95 123456789"
                         />
                       </div>
                     </div>
 
                     <div className={formInView ? 'animate-fadeInUp' : 'opacity-0'} style={{ animationDelay: '0.4s' }}>
-                      <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Subject *
                       </label>
                       <select
@@ -232,7 +232,7 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-xl border border-sky-200 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 hover:border-sky-300"
+                        className="w-full px-4 py-3 rounded-xl border border-sky-200 dark:border-gray-600 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 dark:bg-gray-700 dark:text-white hover:border-sky-300 dark:hover:border-sky-600"
                       >
                         <option value="">Select a subject</option>
                         <option value="general">General Inquiry</option>
@@ -245,7 +245,7 @@ export default function Contact() {
                     </div>
 
                     <div className={formInView ? 'animate-fadeInUp' : 'opacity-0'} style={{ animationDelay: '0.45s' }}>
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Message *
                       </label>
                       <textarea
@@ -255,7 +255,7 @@ export default function Contact() {
                         onChange={handleChange}
                         required
                         rows={5}
-                        className="w-full px-4 py-3 rounded-xl border border-sky-200 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 hover:border-sky-300 resize-none"
+                        className="w-full px-4 py-3 rounded-xl border border-sky-200 dark:border-gray-600 focus:ring-2 focus:ring-sky-400 focus:border-sky-400 transition-all bg-sky-50/50 dark:bg-gray-700 dark:text-white hover:border-sky-300 dark:hover:border-sky-600 resize-none"
                         placeholder="How can we help you?"
                       />
                     </div>
@@ -291,17 +291,17 @@ export default function Contact() {
             {/* Side Info - Slide in from right with stagger */}
             <div className={`space-y-8 ${formInView ? 'animate-slideInRight' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
               {/* Quick FAQ */}
-              <div className={`bg-gradient-to-br from-sky-50 to-white rounded-3xl p-8 shadow-lg border border-sky-100 ${
+              <div className={`bg-gradient-to-br from-sky-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-3xl p-8 shadow-lg border border-sky-100 dark:border-gray-700 ${
                 formInView ? 'animate-bounceInUp' : 'opacity-0'
               }`} style={{ animationDelay: '0.3s' }}>
-                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                   <MessageSquare className="w-5 h-5 text-sky-500 mr-2" />
                   Frequently Asked
                 </h3>
                 <ul className="space-y-4">
                   {quickFAQ.map((question, index) => (
                     <li key={index}>
-                      <button className="w-full flex items-center justify-between text-left text-gray-700 hover:text-sky-600 transition-colors group p-3 rounded-xl hover:bg-sky-50">
+                      <button className="w-full flex items-center justify-between text-left text-gray-700 dark:text-gray-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors group p-3 rounded-xl hover:bg-sky-50 dark:hover:bg-gray-700">
                         <span>{question}</span>
                         <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all group-hover:translate-x-1" />
                       </button>
@@ -331,16 +331,16 @@ export default function Contact() {
               </div>
 
               {/* Office Location - Pop animation */}
-              <div className={`bg-gradient-to-br from-sky-50 to-white rounded-3xl p-8 shadow-lg border border-sky-100 ${
+              <div className={`bg-gradient-to-br from-sky-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-3xl p-8 shadow-lg border border-sky-100 dark:border-gray-700 ${
                 formInView ? 'animate-popIn' : 'opacity-0'
               }`} style={{ animationDelay: '0.5s' }}>
                 <div className="flex items-center mb-4">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center mr-3">
                     <Building2 className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Our Headquarters</h3>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">Our Headquarters</h3>
                 </div>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                   73^110 Manawhari street<br />
                   Chanmyathasi township<br />
                   Mandalay, Myanmar

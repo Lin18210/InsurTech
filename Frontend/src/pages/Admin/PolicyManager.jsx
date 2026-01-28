@@ -58,35 +58,34 @@ export default function PolicyManager() {
       }
   }
 
-  if (loading) return <div className="p-8">Loading Policies...</div>
+  if (loading) return <div className="p-8 text-gray-900 dark:text-white">Loading Policies...</div>
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24 min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Manage Policies</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Manage Policies</h1>
         <button onClick={handleAdd} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
             Add New Policy
         </button>
       </div>
 
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
-        <ul className="divide-y divide-gray-200">
+      <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
+        <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {policies.map((policy) => (
-            <li key={policy.id} className="px-4 py-4 flex items-center justify-between sm:px-6">
+            <li key={policy.id} className="px-4 py-4 flex items-center justify-between sm:px-6 hover:bg-gray-50 dark:hover:bg-gray-700">
               <div>
-                <h3 className="text-lg font-medium text-gray-900">{policy.name}</h3>
-                <p className="text-sm text-gray-500">{policy.description}</p>
-                <p className="text-sm font-bold mt-1">${policy.base_annual_premium} / year</p>
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white">{policy.name}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{policy.description}</p>
+                <p className="text-sm font-bold mt-1 text-gray-900 dark:text-white">${policy.base_annual_premium} / year</p>
               </div>
               <button 
                 onClick={() => handleDelete(policy.id)}
-                className="text-red-600 hover:text-red-900 text-sm font-medium"
+                className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 text-sm font-medium"
               >
                 Delete
               </button>
             </li>
-          ))}
-        </ul>
+          ))}        </ul>
       </div>
     </div>
   )

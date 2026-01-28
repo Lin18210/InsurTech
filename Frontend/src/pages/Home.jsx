@@ -84,7 +84,7 @@ export default function Home() {
   const [ctaRef, ctaInView] = useScrollAnimation()
 
   return (
-    <div className="bg-gradient-to-b from-sky-50 to-white">
+    <div className="bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       {/* Hero Section - Entry Animations */}
       <section className="relative pt-20 pb-32 overflow-hidden">
         {/* Background image with gradient overlay */}
@@ -259,17 +259,17 @@ export default function Home() {
       </section>
 
             {/* 💎 Insurance Deals Showcase */}
-      <AnimatedSection className="py-20 bg-gradient-to-b from-white to-sky-50">
+      <AnimatedSection className="py-20 bg-gradient-to-b from-white to-sky-50 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 text-purple-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 text-purple-600 dark:text-purple-400 text-sm font-medium mb-4">
               <Sparkles className="w-4 h-4 mr-2" />
               {t('specialOffers')}
             </div>
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               {t('exclusiveDeals')}
             </h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               {t('exclusiveDealsDesc')}
             </p>
           </div>
@@ -312,7 +312,7 @@ export default function Home() {
               <Link
                 key={index}
                 to={`/products?category=${deal.category}`}
-                className="group relative bg-white rounded-2xl border border-gray-100 p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                className="group relative bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden"
               >
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${deal.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
@@ -328,13 +328,13 @@ export default function Home() {
                   <deal.icon className="w-7 h-7" />
                 </div>
                 
-                <h4 className="text-lg font-bold text-gray-900 mb-1">{deal.title}</h4>
+                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{deal.title}</h4>
                 <div className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
                   {deal.offer}
                 </div>
-                <p className="text-sm text-gray-600">{deal.desc}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{deal.desc}</p>
                 
-                <div className="mt-4 flex items-center text-sky-600 font-medium text-sm group-hover:text-sky-700">
+                <div className="mt-4 flex items-center text-sky-600 dark:text-sky-400 font-medium text-sm group-hover:text-sky-700 dark:group-hover:text-sky-300">
                   {t('learnMore')}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -396,17 +396,17 @@ export default function Home() {
       </section>
 
       {/* Features Section - Staggered fade in from left/right */}
-      <section ref={featuresRef} className="py-24 bg-gradient-to-b from-indigo-50 to-white overflow-hidden">
+      <section ref={featuresRef} className="py-24 bg-gradient-to-b from-indigo-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center max-w-3xl mx-auto mb-16 ${featuresInView ? 'animate-bounceInUp' : 'opacity-0'}`}>
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-orange-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/50 dark:to-orange-900/50 text-orange-600 dark:text-orange-400 text-sm font-medium mb-4">
               <Shield className="w-4 h-4 mr-2" />
               {t('ourServices')}
             </div>
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               {t('completeProtection')}
             </h3>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               {t('completeProtectionDesc')}
             </p>
           </div>
@@ -415,7 +415,7 @@ export default function Home() {
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className={`group p-8 bg-white rounded-2xl border border-sky-100 hover:border-sky-300 hover:shadow-xl transition-all duration-500 card-animated ${
+                className={`group p-8 bg-white dark:bg-gray-800 rounded-2xl border border-sky-100 dark:border-gray-700 hover:border-sky-300 dark:hover:border-sky-600 hover:shadow-xl transition-all duration-500 card-animated ${
                   featuresInView ? (index % 2 === 0 ? 'animate-fadeInLeft' : 'animate-fadeInRight') : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${index * 0.15}s` }}
@@ -423,8 +423,8 @@ export default function Home() {
                 <div className={`w-16 h-16 rounded-2xl text-white flex items-center justify-center mb-6 shadow-lg transition-all group-hover:scale-110 group-hover:rotate-3 ${index === 0 ? 'bg-gradient-to-br from-rose-400 to-pink-500 group-hover:shadow-pink-200' : index === 1 ? 'bg-gradient-to-br from-amber-400 to-orange-500 group-hover:shadow-orange-200' : index === 2 ? 'bg-gradient-to-br from-emerald-400 to-teal-500 group-hover:shadow-teal-200' : 'bg-gradient-to-br from-purple-400 to-indigo-500 group-hover:shadow-indigo-200'}`}>
                   <feature.icon className="w-8 h-8" />
                 </div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">{feature.description}</p>
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{feature.title}</h4>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -432,18 +432,18 @@ export default function Home() {
       </section>
 
       {/* How It Works - Flip in animation */}
-      <section ref={howItWorksRef} className="py-24 bg-white relative overflow-hidden">
+      <section ref={howItWorksRef} className="py-24 bg-white dark:bg-gray-800 relative overflow-hidden transition-colors duration-300">
         {/* Decorative */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-sky-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 animate-float"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-50 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 animate-floatSlow"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-sky-100/50 dark:bg-sky-900/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 animate-float"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-sky-50 dark:bg-sky-900/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 animate-floatSlow"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 ${howItWorksInView ? 'animate-blurIn' : 'opacity-0'}`}>
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 text-sm font-medium mb-4">
               <Zap className="w-4 h-4 mr-2" />
               {t('howItWorks')}
             </div>
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
               {t('simpleProcess')}
             </h3>
           </div>
@@ -467,8 +467,8 @@ export default function Home() {
                     {item.step}
                   </div>
                 </div>
-                <h4 className="text-xl font-semibold text-gray-900 mb-3">{item.title}</h4>
-                <p className="text-gray-600">{item.desc}</p>
+                <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{item.title}</h4>
+                <p className="text-gray-600 dark:text-gray-300">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -486,14 +486,14 @@ export default function Home() {
       </section>
 
       {/* Testimonials - Rotate in animation */}
-      <section ref={testimonialsRef} className="py-24 bg-gradient-to-b from-white to-sky-50 overflow-hidden">
+      <section ref={testimonialsRef} className="py-24 bg-gradient-to-b from-white to-sky-50 dark:from-gray-800 dark:to-gray-900 overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center mb-16 ${testimonialsInView ? 'animate-fadeInDown' : 'opacity-0'}`}>
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 text-sm font-medium mb-4">
               <Star className="w-4 h-4 mr-2" />
               {t('testimonials')}
             </div>
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
               {t('whatCustomersSay')}
             </h3>
           </div>
@@ -502,7 +502,7 @@ export default function Home() {
             {testimonials.map((testimonial, index) => (
               <div 
                 key={index} 
-                className={`p-8 bg-white rounded-2xl border border-sky-100 shadow-lg card-animated ${
+                className={`p-8 bg-white dark:bg-gray-800 rounded-2xl border border-sky-100 dark:border-gray-700 shadow-lg card-animated ${
                   testimonialsInView ? 'animate-rotateIn' : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${0.1 + index * 0.15}s` }}
@@ -512,14 +512,14 @@ export default function Home() {
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-700 mb-6 leading-relaxed">"{testimonial.content}"</p>
+                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">"{testimonial.content}"</p>
                 <div className="flex items-center">
                   <div className={`w-12 h-12 rounded-xl text-white flex items-center justify-center font-semibold mr-4 shadow-lg group-hover:rotate-6 transition-transform ${index === 0 ? 'bg-gradient-to-br from-rose-400 to-pink-500' : index === 1 ? 'bg-gradient-to-br from-emerald-400 to-teal-500' : 'bg-gradient-to-br from-purple-400 to-indigo-500'}`}>
                     {testimonial.image}
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-500">{testimonial.role}, {testimonial.company}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white">{testimonial.name}</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">{testimonial.role}, {testimonial.company}</div>
                   </div>
                 </div>
               </div>

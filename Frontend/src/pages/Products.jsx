@@ -504,7 +504,7 @@ function PolicyDetailModal({ policy, frequency, onClose, onApply }) {
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl modal-fade-in"
+        className="bg-white dark:bg-gray-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl modal-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -530,37 +530,37 @@ function PolicyDetailModal({ policy, frequency, onClose, onApply }) {
         {/* Content */}
         <div className="p-8">
           {/* Price Section */}
-          <div className="bg-gradient-to-r from-sky-50 to-blue-50 rounded-2xl p-6 mb-8">
+          <div className="bg-gradient-to-r from-sky-50 to-blue-50 dark:from-sky-900/30 dark:to-blue-900/30 rounded-2xl p-6 mb-8">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm mb-1">Premium</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Premium</p>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-gray-900">{Number(price).toLocaleString()}</span>
-                  <span className="text-gray-500">MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}</span>
+                  <span className="text-3xl font-bold text-gray-900 dark:text-white">{Number(price).toLocaleString()}</span>
+                  <span className="text-gray-500 dark:text-gray-400">MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}</span>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-gray-600 text-sm mb-1">Coverage up to</p>
-                <p className="text-xl font-bold text-sky-600">{policy.coverage_amount?.toLocaleString()} MMK</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Coverage up to</p>
+                <p className="text-xl font-bold text-sky-600 dark:text-sky-400">{policy.coverage_amount?.toLocaleString()} MMK</p>
               </div>
             </div>
           </div>
           
           {/* Description */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">About This Plan</h3>
-            <p className="text-gray-600 leading-relaxed">{details.description}</p>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">About This Plan</h3>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{details.description}</p>
           </div>
           
           {/* What's Covered */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-sky-500" />
               What's Covered
             </h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {details.coverage.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-600">
+                <li key={i} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
                   <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
@@ -570,13 +570,13 @@ function PolicyDetailModal({ policy, frequency, onClose, onApply }) {
           
           {/* Benefits */}
           <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Sparkles className="w-5 h-5 text-amber-500" />
               Key Benefits
             </h3>
             <ul className="space-y-3">
               {details.benefits.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-600">
+                <li key={i} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
                   <Star className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
@@ -672,14 +672,14 @@ export default function Products() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-50 to-white">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div className="text-center">
           <div className="relative w-20 h-20 mx-auto mb-6">
-            <div className="absolute inset-0 border-4 border-sky-200 rounded-full"></div>
+            <div className="absolute inset-0 border-4 border-sky-200 dark:border-sky-800 rounded-full"></div>
             <div className="absolute inset-0 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
             <Shield className="absolute inset-0 m-auto w-8 h-8 text-sky-500 animate-pulse" />
           </div>
-          <p className="text-slate-600 text-lg">Loading amazing plans...</p>
+          <p className="text-slate-600 dark:text-slate-300 text-lg">Loading amazing plans...</p>
         </div>
       </div>
     )
@@ -687,13 +687,13 @@ export default function Products() {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-50 to-white">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center mx-auto mb-6">
             <Shield className="w-10 h-10 text-red-500" />
           </div>
-          <h3 className="text-2xl font-semibold text-gray-900 mb-2">Oops! Something went wrong</h3>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Oops! Something went wrong</h3>
+          <p className="text-gray-600 dark:text-gray-300 mb-6">{error}</p>
           <button
             onClick={() => {
               setLoading(true)
@@ -710,7 +710,7 @@ export default function Products() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white pt-24 pb-20 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800 pt-24 pb-20 overflow-hidden transition-colors duration-300">
       {/* Inject custom animation styles */}
       <style>{cardAnimationStyles}</style>
       
@@ -721,10 +721,10 @@ export default function Products() {
             <Award className="w-4 h-4 mr-2" />
             Trusted by 50,000+ customers
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Choose Your <span className="gradient-text">Coverage Plan</span>
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 dark:text-gray-300">
             Transparent pricing with no hidden fees. Cancel anytime.
           </p>
         </div>
@@ -742,8 +742,8 @@ export default function Products() {
                   onClick={() => setActiveCategory(category.key)}
                   className={`category-bounce flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all hover:scale-105 ${
                     isActive
-                      ? 'bg-gradient-to-r from-sky-400 to-sky-500 text-white shadow-lg shadow-sky-200'
-                      : 'bg-white text-gray-600 hover:bg-sky-50 hover:text-sky-600 border border-sky-100 shadow-sm'
+                      ? 'bg-gradient-to-r from-sky-400 to-sky-500 text-white shadow-lg shadow-sky-200 dark:shadow-sky-900'
+                      : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-sky-50 dark:hover:bg-gray-700 hover:text-sky-600 dark:hover:text-sky-400 border border-sky-100 dark:border-gray-700 shadow-sm'
                   }`}
                   style={{ animationDelay: `${index * 80}ms` }}
                 >
@@ -757,7 +757,7 @@ export default function Products() {
 
         {/* Frequency Toggle */}
         <div className="flex flex-col items-center mb-12 animate-scaleIn">
-          <div className="bg-white p-2 rounded-2xl border border-sky-100 shadow-lg inline-flex relative overflow-hidden">
+          <div className="bg-white dark:bg-gray-800 p-2 rounded-2xl border border-sky-100 dark:border-gray-700 shadow-lg inline-flex relative overflow-hidden">
             {/* Shimmer effect */}
             <div className="absolute inset-0 shimmer-glow pointer-events-none"></div>
             {[
@@ -771,7 +771,7 @@ export default function Products() {
                 className={`relative px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-300 ${
                   frequency === freq.key
                     ? 'bg-gradient-to-r from-sky-400 to-sky-500 text-white shadow-lg transform scale-105'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-sky-50'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-sky-50 dark:hover:bg-gray-700'
                 }`}
               >
                 {freq.label}
@@ -783,7 +783,7 @@ export default function Products() {
               </button>
             ))}
           </div>
-          <p className="mt-4 text-sm text-gray-500">
+          <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
             {frequency === 'monthly' ? '💳 Pay monthly with 10% convenience fee' : 
              frequency === 'quarterly' ? '📅 Pay quarterly with 5% convenience fee' : 
              '🎉 Annual billing – best value!'}
@@ -802,14 +802,14 @@ export default function Products() {
                 <div 
                   key={policy.id}
                   onClick={() => setSelectedPolicy(policy)}
-                  className={`bg-white rounded-2xl border border-sky-100 shadow-lg hover:shadow-xl hover:border-sky-300 transition-all duration-300 cursor-pointer group ${
+                  className={`bg-white dark:bg-gray-800 rounded-2xl border border-sky-100 dark:border-gray-700 shadow-lg hover:shadow-xl hover:border-sky-300 dark:hover:border-sky-600 transition-all duration-300 cursor-pointer group ${
                     animateCards ? 'card-slide-in' : 'opacity-0'
                   }`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-center p-6 gap-6">
                     {/* Icon */}
-                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-sky-100 to-sky-50 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:from-sky-400 group-hover:to-sky-500 transition-all duration-300">
+                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-sky-100 to-sky-50 dark:from-sky-900 dark:to-gray-800 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:from-sky-400 group-hover:to-sky-500 transition-all duration-300">
                       <PolicyIcon className="w-8 h-8 md:w-10 md:h-10 text-sky-500 group-hover:text-white transition-colors" />
                     </div>
                     
@@ -817,20 +817,20 @@ export default function Products() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0">
-                          <h3 className="text-lg md:text-xl font-bold text-gray-900 group-hover:text-sky-600 transition-colors truncate">
+                          <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors truncate">
                             {policy.name}
                           </h3>
-                          <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-2">
                             {details.tagline}
                           </p>
                         </div>
                         
                         {/* Price on desktop */}
                         <div className="hidden md:block text-right flex-shrink-0">
-                          <div className="text-2xl font-bold text-gray-900">
+                          <div className="text-2xl font-bold text-gray-900 dark:text-white">
                             {Number(price).toLocaleString()}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
                             MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}
                           </div>
                         </div>
@@ -839,14 +839,14 @@ export default function Products() {
                       {/* Price on mobile */}
                       <div className="md:hidden mt-3 flex items-center justify-between">
                         <div>
-                          <span className="text-xl font-bold text-gray-900">{Number(price).toLocaleString()}</span>
-                          <span className="text-sm text-gray-500 ml-1">MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}</span>
+                          <span className="text-xl font-bold text-gray-900 dark:text-white">{Number(price).toLocaleString()}</span>
+                          <span className="text-sm text-gray-500 dark:text-gray-400 ml-1">MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}</span>
                         </div>
                       </div>
                       
                       {/* Coverage badge */}
                       <div className="mt-3 flex items-center gap-4">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-sky-50 text-sky-600 text-xs font-medium">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-sky-50 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 text-xs font-medium">
                           💰 Coverage: {policy.coverage_amount?.toLocaleString()} MMK
                         </span>
                         <span className="text-sky-500 text-sm font-medium group-hover:text-sky-600 flex items-center gap-1">
@@ -865,8 +865,8 @@ export default function Products() {
             <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-sky-100 to-sky-200 flex items-center justify-center mx-auto mb-6 animate-float">
               <Shield className="w-12 h-12 text-sky-500" />
             </div>
-            <h3 className="text-2xl font-semibold text-gray-900 mb-2">No Plans Found</h3>
-            <p className="text-gray-600 mb-6">We don't have any plans in this category yet.</p>
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">No Plans Found</h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">We don't have any plans in this category yet.</p>
             <button
               onClick={() => setActiveCategory('all')}
               className="btn-primary inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transition-transform"
@@ -879,7 +879,7 @@ export default function Products() {
 
         {/* Trust Section */}
         <div className="mt-16 text-center animate-fadeInUp" style={{ animationDelay: '0.8s' }}>
-          <div className="inline-flex items-center justify-center gap-2 mb-4 bg-white px-8 py-4 rounded-full shadow-xl border border-sky-100">
+          <div className="inline-flex items-center justify-center gap-2 mb-4 bg-white dark:bg-gray-800 px-8 py-4 rounded-full shadow-xl border border-sky-100 dark:border-gray-700">
             {[1,2,3,4,5].map((i) => (
               <Star 
                 key={i} 
@@ -887,11 +887,11 @@ export default function Products() {
                 style={{ animationDelay: `${i * 100}ms` }}
               />
             ))}
-            <span className="ml-3 text-gray-700 text-lg">
-              Rated <span className="font-bold text-gray-900">4.9/5</span>
+            <span className="ml-3 text-gray-700 dark:text-gray-300 text-lg">
+              Rated <span className="font-bold text-gray-900 dark:text-white">4.9/5</span>
             </span>
           </div>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
             Trusted by <span className="font-bold text-sky-600">2,000+</span> happy customers
           </p>
         </div>

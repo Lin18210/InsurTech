@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+/* Dark mode configuration for Tailwind v4 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Dark mode base styles */
+:root {
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8fafc;
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+}
+
+.dark {
+  --color-bg: #0f172a;
+  --color-bg-secondary: #1e293b;
+  --color-text: #f8fafc;
+  --color-text-secondary: #94a3b8;
+}
+
 /* =====================================================
    PROFESSIONAL ANIMATIONS
    ===================================================== */

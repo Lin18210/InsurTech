@@ -104,7 +104,7 @@ export default function AboutUs() {
   const [ctaRef, ctaInView] = useScrollAnimation()
 
   return (
-    <div className="bg-gradient-to-b from-sky-50 to-white">
+    <div className="bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
       {/* Hero Section - Slide animations */}
       <section className="relative pt-32 pb-24 overflow-hidden">
         {/* Background image with overlay */}
@@ -169,18 +169,18 @@ export default function AboutUs() {
       </section>
 
       {/* Our Story Section - Slide in from sides */}
-      <section ref={storyRef} className="py-24 bg-gradient-to-b from-sky-50 to-white overflow-hidden">
+      <section ref={storyRef} className="py-24 bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className={storyInView ? 'animate-slideInLeft' : 'opacity-0'}>
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-4">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 text-sm font-medium mb-4">
                 <Zap className="w-4 h-4 mr-2" />
                 Our Story
               </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
                 Built on Trust, Driven by Purpose
               </h3>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
+              <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>
                   InsurTech was founded with a simple belief: insurance should protect people, not confuse them. 
                   We saw an industry filled with complex jargon, hidden clauses, and frustrating claims processes.
@@ -198,22 +198,22 @@ export default function AboutUs() {
             
             <div className={`relative ${storyInView ? 'animate-slideInRight' : 'opacity-0'}`} style={{ animationDelay: '0.2s' }}>
               {/* Decorative background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-200/50 to-sky-100/30 rounded-3xl -rotate-3 animate-pulse"></div>
-              <div className="relative bg-white rounded-3xl p-8 lg:p-10 shadow-xl border border-sky-100">
+              <div className="absolute inset-0 bg-gradient-to-br from-sky-200/50 to-sky-100/30 dark:from-sky-800/50 dark:to-sky-900/30 rounded-3xl -rotate-3 animate-pulse"></div>
+              <div className="relative bg-white dark:bg-gray-800 rounded-3xl p-8 lg:p-10 shadow-xl border border-sky-100 dark:border-gray-700">
                 <div className="grid grid-cols-2 gap-6">
                   {stats.map((stat, index) => (
                     <div 
                       key={index} 
-                      className={`text-center p-6 bg-gradient-to-br from-sky-50 to-white rounded-2xl border border-sky-100 card-animated ${
+                      className={`text-center p-6 bg-gradient-to-br from-sky-50 to-white dark:from-gray-700 dark:to-gray-800 rounded-2xl border border-sky-100 dark:border-gray-600 card-animated ${
                         storyInView ? 'animate-scaleInBounce' : 'opacity-0'
                       }`}
                       style={{ animationDelay: `${0.4 + index * 0.1}s` }}
                     >
-                      <div className="w-12 h-12 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center mx-auto mb-4 group-hover:rotate-12 transition-transform">
+                      <div className="w-12 h-12 rounded-xl bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 flex items-center justify-center mx-auto mb-4 group-hover:rotate-12 transition-transform">
                         <stat.icon className="w-6 h-6" />
                       </div>
-                      <div className="text-2xl md:text-3xl font-bold text-gray-900 mb-1">{stat.number}</div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
+                      <div className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-1">{stat.number}</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-300">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -273,7 +273,7 @@ export default function AboutUs() {
       </section>
 
       {/* 💼 Special Offer Card */}
-      <AnimatedSection animation="fadeInUp" className="py-16 bg-gradient-to-b from-sky-50 to-white">
+      <AnimatedSection animation="fadeInUp" className="py-16 bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden">
             {/* Decorative elements */}
@@ -335,17 +335,17 @@ export default function AboutUs() {
       </AnimatedSection>
 
       {/* Our Values Section - Staggered bounce in */}
-      <section ref={valuesRef} className="py-24 bg-white overflow-hidden">
+      <section ref={valuesRef} className="py-24 bg-white dark:bg-gray-800 overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`text-center max-w-3xl mx-auto mb-16 ${valuesInView ? 'animate-fadeInDown' : 'opacity-0'}`}>
-            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-rose-100 to-pink-100 text-rose-600 text-sm font-medium mb-4">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-rose-100 to-pink-100 dark:from-rose-900/50 dark:to-pink-900/50 text-rose-600 dark:text-rose-400 text-sm font-medium mb-4">
               <Heart className="w-4 h-4 mr-2" />
               Our Values
             </div>
-            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               What We Stand For
             </h3>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 dark:text-gray-300">
               Our values guide every interaction, every policy, and every claim we process.
             </p>
           </div>
@@ -354,7 +354,7 @@ export default function AboutUs() {
             {values.map((value, index) => (
               <div 
                 key={index}
-                className={`group p-8 rounded-2xl border card-animated ${index === 0 ? 'bg-gradient-to-br from-rose-50 to-white border-rose-100 hover:border-rose-300' : index === 1 ? 'bg-gradient-to-br from-amber-50 to-white border-amber-100 hover:border-amber-300' : index === 2 ? 'bg-gradient-to-br from-teal-50 to-white border-teal-100 hover:border-teal-300' : 'bg-gradient-to-br from-purple-50 to-white border-purple-100 hover:border-purple-300'} ${
+                className={`group p-8 rounded-2xl border card-animated ${index === 0 ? 'bg-gradient-to-br from-rose-50 to-white dark:from-rose-900/30 dark:to-gray-800 border-rose-100 dark:border-rose-800/50 hover:border-rose-300' : index === 1 ? 'bg-gradient-to-br from-amber-50 to-white dark:from-amber-900/30 dark:to-gray-800 border-amber-100 dark:border-amber-800/50 hover:border-amber-300' : index === 2 ? 'bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/30 dark:to-gray-800 border-teal-100 dark:border-teal-800/50 hover:border-teal-300' : 'bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/30 dark:to-gray-800 border-purple-100 dark:border-purple-800/50 hover:border-purple-300'} ${
                   valuesInView ? 'animate-bounceInUp' : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${0.1 + index * 0.15}s` }}
@@ -362,8 +362,8 @@ export default function AboutUs() {
                 <div className={`w-16 h-16 rounded-2xl text-white flex items-center justify-center mb-6 shadow-lg transition-all group-hover:scale-110 group-hover:rotate-6 ${index === 0 ? 'bg-gradient-to-br from-rose-400 to-pink-500 group-hover:shadow-pink-200' : index === 1 ? 'bg-gradient-to-br from-amber-400 to-orange-500 group-hover:shadow-orange-200' : index === 2 ? 'bg-gradient-to-br from-teal-400 to-emerald-500 group-hover:shadow-teal-200' : 'bg-gradient-to-br from-purple-400 to-indigo-500 group-hover:shadow-purple-200'}`}>
                   <value.icon className="w-8 h-8" />
                 </div>
-                <h4 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h4>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{value.title}</h4>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>
@@ -371,18 +371,18 @@ export default function AboutUs() {
       </section>
 
       {/* Why Choose Us Section - Alternating slide */}
-      <section ref={whyUsRef} className="py-24 bg-gradient-to-b from-white to-sky-50 overflow-hidden">
+      <section ref={whyUsRef} className="py-24 bg-gradient-to-b from-white to-sky-50 dark:from-gray-800 dark:to-gray-900 overflow-hidden transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className={whyUsInView ? 'animate-fadeInLeft' : 'opacity-0'}>
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-orange-600 text-sm font-medium mb-4">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/50 dark:to-orange-900/50 text-orange-600 dark:text-orange-400 text-sm font-medium mb-4">
                 <Award className="w-4 h-4 mr-2" />
                 Why InsurTech
               </div>
-              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
                 The InsurTech Difference
               </h3>
-              <p className="text-lg text-gray-600 mb-8">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
                 We're not just another insurance company. We're your partner in protection, 
                 committed to being there when you need us most.
               </p>
@@ -399,7 +399,7 @@ export default function AboutUs() {
                     <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5 mr-3">
                       <CheckCircle className="w-4 h-4 text-green-500" />
                     </div>
-                    <span className="text-gray-700 text-sm">{item}</span>
+                    <span className="text-gray-700 dark:text-gray-300 text-sm">{item}</span>
                   </div>
                 ))}
               </div>
@@ -460,17 +460,17 @@ export default function AboutUs() {
       </section>
 
       {/* Contact Information Cards */}
-      <section ref={cardsRef} className="py-16 bg-gradient-to-b from-white to-sky-50">
+      <section ref={cardsRef} className="py-16 bg-gradient-to-b from-white to-sky-50 dark:from-gray-800 dark:to-gray-900 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Get In Touch</h3>
-            <p className="text-gray-600">We're here to help with all your insurance needs</p>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h3>
+            <p className="text-gray-600 dark:text-gray-300">We're here to help with all your insurance needs</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.map((info, index) => (
               <div 
                 key={index}
-                className={`bg-white rounded-2xl p-6 shadow-xl border border-sky-100 card-animated ${
+                className={`bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-sky-100 dark:border-gray-700 card-animated ${
                   cardsInView ? 'animate-flipIn' : 'opacity-0'
                 }`}
                 style={{ animationDelay: `${index * 0.15}s` }}
@@ -478,8 +478,8 @@ export default function AboutUs() {
                 <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center mb-4 shadow-lg group-hover:rotate-12 transition-transform">
                   <info.icon className="w-7 h-7" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{info.title}</h3>
-                <p className="text-sm text-gray-500 mb-2">{info.description}</p>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{info.title}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{info.description}</p>
                 {info.action ? (
                   <a 
                     href={info.action}
@@ -497,19 +497,19 @@ export default function AboutUs() {
           {/* Headquarters Map */}
           <div className="mt-16">
             <div className="text-center mb-8">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 text-sky-600 text-sm font-medium mb-4">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-sky-100 dark:bg-sky-900/50 text-sky-600 dark:text-sky-400 text-sm font-medium mb-4">
                 <MapPin className="w-4 h-4 mr-2" />
                 Our Headquarters
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Visit Our Office</h3>
-              <p className="text-gray-600">73^110 Manawhari Street, Chanmyathasi Township, Mandalay</p>
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">Visit Our Office</h3>
+              <p className="text-gray-600 dark:text-gray-300">73^110 Manawhari Street, Chanmyathasi Township, Mandalay</p>
             </div>
             
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700">
               {/* Map Container */}
-              <div className="aspect-video md:aspect-[21/9] w-full bg-sky-100">
+              <div className="aspect-video md:aspect-[21/9] w-full bg-sky-100 dark:bg-gray-700">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14658.547774870396!2d96.0789!3d21.9588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30cb6d9d1d40da67%3A0x5bc6b3a7d2e7c4b3!2sChanmyathasi%20Township%2C%20Mandalay%2C%20Myanmar!5e0!3m2!1sen!2s!4v1706380800000!5m2!1sen!2s"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3700.9138448558315!2d96.08710665047039!3d21.93786332840626!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30cb6d61168aa7c1%3A0xcf1acb8f196c3bd6!2sMyanmar%20Institute%20of%20Information%20Technology!5e0!3m2!1sen!2sth!4v1769603587691!5m2!1sen!2sth"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
