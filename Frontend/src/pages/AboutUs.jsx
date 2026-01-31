@@ -20,8 +20,8 @@ const contactInfo = [
     icon: Mail,
     title: 'Email',
     description: 'We reply within 24 hours',
-    value: 'support@insurtech.com',
-    action: 'mailto:support@insurtech.com'
+    value: 'support@W&N Insurance.com',
+    action: 'mailto:support@W&N Insurance.com'
   },
   {
     icon: MapPin,
@@ -130,7 +130,7 @@ export default function AboutUs() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-bounceInUp opacity-0-start inline-flex items-center px-5 py-2.5 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm font-medium mb-6 border border-white/20">
             <Building2 className="w-4 h-4 mr-2" />
-            About InsurTech
+            About W&N Insurance
           </div>
           
           <h1 className="animate-blurIn opacity-0-start delay-100 text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
@@ -182,7 +182,7 @@ export default function AboutUs() {
               </h3>
               <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>
-                  InsurTech was founded with a simple belief: insurance should protect people, not confuse them. 
+                  W&N Insurance was founded with a simple belief: insurance should protect people, not confuse them. 
                   We saw an industry filled with complex jargon, hidden clauses, and frustrating claims processes.
                 </p>
                 <p>
@@ -377,10 +377,10 @@ export default function AboutUs() {
             <div className={whyUsInView ? 'animate-fadeInLeft' : 'opacity-0'}>
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/50 dark:to-orange-900/50 text-orange-600 dark:text-orange-400 text-sm font-medium mb-4">
                 <Award className="w-4 h-4 mr-2" />
-                Why InsurTech
+                Why W&N Insurance
               </div>
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                The InsurTech Difference
+                The W&N Insurance Difference
               </h3>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
                 We're not just another insurance company. We're your partner in protection, 
@@ -411,7 +411,7 @@ export default function AboutUs() {
                 <Briefcase className="w-14 h-14 mb-6 text-sky-100 animate-float" />
                 <h4 className="text-2xl font-bold mb-4">Ready to Get Protected?</h4>
                 <p className="text-sky-100 mb-8 text-lg">
-                  Join thousands of satisfied customers who trust InsurTech with their protection needs.
+                  Join thousands of satisfied customers who trust W&N Insurance with their protection needs.
                 </p>
                 <Link 
                   to="/products"
@@ -516,7 +516,7 @@ export default function AboutUs() {
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="InsurTech Headquarters Location"
+                  title="W&N Insurance Headquarters Location"
                   className="w-full h-full"
                 ></iframe>
               </div>
@@ -528,7 +528,7 @@ export default function AboutUs() {
                     <Building2 className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1">InsurTech HQ</h4>
+                    <h4 className="font-semibold text-gray-900 mb-1">W&N Insurance HQ</h4>
                     <p className="text-sm text-gray-600 mb-2">73^110 Manawhari Street<br/>Chanmyathasi Township, Mandalay</p>
                     <a 
                       href="https://www.google.com/maps/search/Chanmyathasi+Township+Mandalay+Myanmar"
