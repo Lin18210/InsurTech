@@ -53,7 +53,7 @@ export default function CustomerDashboard() {
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="text-lg font-medium text-gray-900">{sub.policies?.name}</h3>
-                      <p className="text-sm text-gray-500">Coverage: ${sub.policies?.coverage_amount?.toLocaleString()}</p>
+                      <p className="text-sm text-gray-500">Coverage: {sub.policies?.coverage_amount?.toLocaleString()} MMK</p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full inline-block">
@@ -63,7 +63,7 @@ export default function CustomerDashboard() {
                         Next Payment: {sub.next_payment_date && !isNaN(new Date(sub.next_payment_date).getTime()) ? format(new Date(sub.next_payment_date), 'MMM dd, yyyy') : 'TBD'}
                       </p>
                       <p className="text-sm font-bold text-gray-900">
-                        ${sub.amount} / {sub.frequency}
+                        {sub.amount} MMK / {sub.frequency}
                       </p>
                       <button 
                         onClick={() => generatePolicyPDF({
@@ -124,7 +124,7 @@ export default function CustomerDashboard() {
                           {t.type}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-medium text-gray-900">
-                          ${t.amount}
+                          {t.amount} MMK
                         </td>
                       </tr>
                     ))}

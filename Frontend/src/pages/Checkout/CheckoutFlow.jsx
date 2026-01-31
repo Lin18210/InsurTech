@@ -15,11 +15,11 @@ const FREQUENCY_LABELS = {
 }
 
 const INCOME_RANGES = [
-  { value: 'below_1000', label: 'Below $1,000/month', amount: 1000 },
-  { value: '1000_3000', label: '$1,000 - $3,000/month', amount: 2000 },
-  { value: '3000_5000', label: '$3,000 - $5,000/month', amount: 4000 },
-  { value: '5000_10000', label: '$5,000 - $10,000/month', amount: 7500 },
-  { value: 'above_10000', label: 'Above $10,000/month', amount: 15000 }
+  { value: 'below_500000', label: 'Below 500,000 MMK/month', amount: 500000 },
+  { value: '500000_1000000', label: '500,000 - 1,000,000 MMK/month', amount: 750000 },
+  { value: '1000000_2000000', label: '1,000,000 - 2,000,000 MMK/month', amount: 1500000 },
+  { value: '2000000_5000000', label: '2,000,000 - 5,000,000 MMK/month', amount: 3500000 },
+  { value: 'above_5000000', label: 'Above 5,000,000 MMK/month', amount: 7500000 }
 ]
 
 export default function CheckoutFlow() {
@@ -43,7 +43,7 @@ export default function CheckoutFlow() {
     dob: '',
     healthStatus: 'good',
     isSmoker: false,
-    income: '3000_5000',
+    income: '1000000_2000000',
     frequency: initialFrequency,
     medicalDocument: null
   })

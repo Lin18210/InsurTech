@@ -30,11 +30,11 @@ const FREQUENCY_FACTORS = {
 }
 
 const INCOME_RANGES = [
-  { value: 'below_1000', label: 'Below $1,000/month', amount: 1000 },
-  { value: '1000_3000', label: '$1,000 - $3,000/month', amount: 2000 },
-  { value: '3000_5000', label: '$3,000 - $5,000/month', amount: 4000 },
-  { value: '5000_10000', label: '$5,000 - $10,000/month', amount: 7500 },
-  { value: 'above_10000', label: 'Above $10,000/month', amount: 15000 }
+  { value: 'below_500000', label: 'Below 500,000 MMK/month', amount: 500000 },
+  { value: '500000_1000000', label: '500,000 - 1,000,000 MMK/month', amount: 750000 },
+  { value: '1000000_2000000', label: '1,000,000 - 2,000,000 MMK/month', amount: 1500000 },
+  { value: '2000000_5000000', label: '2,000,000 - 5,000,000 MMK/month', amount: 3500000 },
+  { value: 'above_5000000', label: 'Above 5,000,000 MMK/month', amount: 7500000 }
 ]
 
 export function calculateAge(dob) {
@@ -101,7 +101,7 @@ export default function PremiumCalculator({ isOpen, onClose, policy, initialFreq
   const [dob, setDob] = useState('')
   const [healthStatus, setHealthStatus] = useState('good')
   const [isSmoker, setIsSmoker] = useState(false)
-  const [income, setIncome] = useState('3000_5000')
+  const [income, setIncome] = useState('1000000_2000000')
   const [frequency, setFrequency] = useState(initialFrequency || 'yearly')
   const [calculation, setCalculation] = useState(null)
   const [error, setError] = useState('')
@@ -311,9 +311,9 @@ export default function PremiumCalculator({ isOpen, onClose, policy, initialFreq
               {/* Final Premium */}
               <div className="text-center mb-6 p-4 bg-white rounded-lg shadow-sm">
                 <p className="text-sm text-gray-500 mb-1">Your {frequency} premium</p>
-                <p className="text-4xl font-bold text-blue-600">${calculation.finalPremium}</p>
+                <p className="text-4xl font-bold text-blue-600">{calculation.finalPremium} MMK</p>
                 <p className="text-xs text-gray-400 mt-1">
-                  Annual equivalent: ${calculation.annualEquivalent}/year
+                  Annual equivalent: {calculation.annualEquivalent} MMK/year
                 </p>
               </div>
 
@@ -321,7 +321,7 @@ export default function PremiumCalculator({ isOpen, onClose, policy, initialFreq
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between py-2 border-b border-gray-200">
                   <span className="text-gray-600">Base Premium</span>
-                  <span className="font-medium">${calculation.breakdown.basePremium}/year</span>
+                  <span className="font-medium">{calculation.breakdown.basePremium} MMK/year</span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-gray-200">
                   <span className="text-gray-600">Age Factor ({calculation.breakdown.ageGroup})</span>

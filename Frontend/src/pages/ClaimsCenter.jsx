@@ -146,7 +146,7 @@ export default function ClaimsCenter() {
                     {claim.reason}
                   </td>
                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
-                    ${claim.amount}
+                    {claim.amount} MMK
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -187,10 +187,10 @@ export default function ClaimsCenter() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Claim Amount ($)</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Claim Amount (MMK)</label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500 dark:text-gray-400 sm:text-sm">$</span>
+                    <span className="text-gray-500 dark:text-gray-400 sm:text-sm">K</span>
                   </div>
                   <input
                     type="number"
@@ -201,7 +201,7 @@ export default function ClaimsCenter() {
                     onChange={(e) => setAmount(e.target.value)}
                   />
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500 dark:text-gray-400 sm:text-sm">USD</span>
+                    <span className="text-gray-500 dark:text-gray-400 sm:text-sm">MMK</span>
                   </div>
                 </div>
               </div>
