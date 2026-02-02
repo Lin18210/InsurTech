@@ -144,7 +144,6 @@ exports.createSubscription = async (req, res) => {
   const nextPaymentDate = calculateNextPayment(new Date(), frequency)
 
   try {
-    // 1. Create Subscription with health assessment data
     console.log('💾 Inserting subscription into database...')
     const { data: subData, error: subError } = await supabase
       .from('subscriptions')
@@ -197,3 +196,120 @@ exports.createSubscription = async (req, res) => {
     res.status(400).json({ error: error.message, details: error })
   }
 }
+
+// ========== POLICY MANAGEMENT (Admin) ==========
+
+// Create a new policy
+exports.createPolicy = async (req, res) => {
+  const { name, description, base_annual_premium, coverage_amount } = req.body
+  
+  console.log('📝 [Admin] Creating new policy:', name)
+  
+  if (!name || !base_annual_premium) {
+    return res.status(400).json({ error: 'Missing required fields: name and base_annual_premium are required' })
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('policies')
+      .insert([{
+        name,
+        description: description || '',
+        base_annual_premium: parseFloat(base_annual_premium),
+        coverage_amount: parseFloat(coverage_amount) || 50000000
+      }])
+      .select()
+      .single()
+
+    if (error) {
+      console.error('❌ Policy creation error:', error)
+      throw error
+    }
+    
+    console.log('✅ Policy created:', data.id)
+    res.status(201).json(data)
+  } catch (error) {
+    console.error('❌ Controller Error:', error.message)
+    res.status(400).json({ error: error.message })
+  }
+}
+
+// Update an existing policy
+exports.updatePolicy = async (req, res) => {
+  const { id } = req.params
+  const { name, description, base_annual_premium, coverage_amount } = req.body
+  
+  console.log('📝 [Admin] Updating policy:', id)
+
+  try {
+    const updateData = {}
+    if (name !== undefined) updateData.name = name
+    if (description !== undefined) updateData.description = description
+    if (base_annual_premium !== undefined) updateData.base_annual_premium = parseFloat(base_annual_premium)
+    if (coverage_amount !== undefined) updateData.coverage_amount = parseFloat(coverage_amount)
+
+    const { data, error } = await supabase
+      .from('policies')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+      .single()
+
+    if (error) {
+      console.error('❌ Policy update error:', error)
+      throw error
+    }
+    
+    if (!data) {
+      return res.status(404).json({ error: 'Policy not found' })
+    }
+    
+    console.log('✅ Policy updated:', data.id)
+    res.json(data)
+  } catch (error) {
+    console.error('❌ Controller Error:', error.message)
+    res.status(400).json({ error: error.message })
+  }
+}
+
+// Delete a policy
+exports.deletePolicy = async (req, res) => {
+  const { id } = req.params
+  
+  console.log('🗑️ [Admin] Deleting policy:', id)
+
+  try {
+    // Check if policy has active subscriptions
+    const { data: subscriptions, error: subError } = await supabase
+      .from('subscriptions')
+      .select('id')
+      .eq('policy_id', id)
+      .eq('status', 'active')
+      .limit(1)
+    
+    if (subError) throw subError
+    
+    if (subscriptions && subscriptions.length > 0) {
+      return res.status(400).json({ 
+        error: 'Cannot delete policy with active subscriptions. Please cancel all subscriptions first.' 
+      })
+    }
+
+    const { error } = await supabase
+      .from('policies')
+      .delete()
+      .eq('id', id)
+
+    if (error) {
+      console.error('❌ Policy delete error:', error)
+      throw error
+    }
+    
+    console.log('✅ Policy deleted:', id)
+    res.json({ message: 'Policy deleted successfully', id })
+  } catch (error) {
+    console.error('❌ Controller Error:', error.message)
+    res.status(400).json({ error: error.message })
+  }
+}
+

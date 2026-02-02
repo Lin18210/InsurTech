@@ -243,7 +243,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 mb-8">
         <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
              <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Total Revenue</dt>
@@ -259,6 +259,11 @@ export default function AdminDashboard() {
         <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg flex items-center justify-center p-6">
            <Link to="/admin/claims" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
              Manage Claims &rarr;
+           </Link>
+        </div>
+        <div className="bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg flex items-center justify-center p-6">
+           <Link to="/admin/policies" className="text-green-600 dark:text-green-400 font-medium hover:underline">
+             Manage Policies &rarr;
            </Link>
         </div>
       </div>

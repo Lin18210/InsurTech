@@ -343,23 +343,31 @@ const policyDetailsData = {
   }
 }
 
-// Get policy details or generate default
-const getPolicyDetails = (policyName) => {
+// Get policy details - now accepts full policy object and prioritizes database fields
+const getPolicyDetails = (policy) => {
+  // Handle both string (policy name) and object (full policy) inputs
+  const policyName = typeof policy === 'string' ? policy : policy?.name
+  const policyData = typeof policy === 'object' ? policy : null
+  
+  // Get fallback data from hardcoded list
+  let fallbackData = null
+  
   // Try exact match first
   if (policyDetailsData[policyName]) {
-    return policyDetailsData[policyName]
-  }
-  
-  // Try to find partial match
-  for (const [key, value] of Object.entries(policyDetailsData)) {
-    if (policyName?.toLowerCase().includes(key.toLowerCase()) || 
-        key.toLowerCase().includes(policyName?.toLowerCase())) {
-      return value
+    fallbackData = policyDetailsData[policyName]
+  } else {
+    // Try to find partial match
+    for (const [key, value] of Object.entries(policyDetailsData)) {
+      if (policyName?.toLowerCase().includes(key.toLowerCase()) || 
+          key.toLowerCase().includes(policyName?.toLowerCase())) {
+        fallbackData = value
+        break
+      }
     }
   }
   
-  // Return default
-  return {
+  // Default fallback
+  const defaultData = {
     category: 'general',
     tagline: 'Comprehensive insurance coverage',
     description: 'This insurance plan provides comprehensive coverage to protect you and your assets. Contact us for more details about this plan.',
@@ -377,6 +385,22 @@ const getPolicyDetails = (policyName) => {
     ],
     icon: Shield
   }
+  
+  // Merge: database fields take priority, then fallback, then default
+  const result = {
+    category: policyData?.category || fallbackData?.category || defaultData.category,
+    tagline: policyData?.tagline || fallbackData?.tagline || defaultData.tagline,
+    description: policyData?.description || fallbackData?.description || defaultData.description,
+    coverage: (policyData?.coverage && policyData.coverage.length > 0) 
+      ? policyData.coverage 
+      : (fallbackData?.coverage || defaultData.coverage),
+    benefits: (policyData?.benefits && policyData.benefits.length > 0) 
+      ? policyData.benefits 
+      : (fallbackData?.benefits || defaultData.benefits),
+    icon: fallbackData?.icon || defaultData.icon
+  }
+  
+  return result
 }
 
 // Map policy types/names to category keys
@@ -484,7 +508,7 @@ const cardAnimationStyles = `
 
 // Detail Modal Component
 function PolicyDetailModal({ policy, frequency, onClose, onApply }) {
-  const details = getPolicyDetails(policy.name)
+  const details = getPolicyDetails(policy)
   const PolicyIcon = getIconForPolicy(policy.name)
   const price = insuranceService.calculatePremium(policy.base_annual_premium, frequency)
   
@@ -655,19 +679,15 @@ export default function Products() {
     navigate(`/checkout?policyId=${policy.id}&frequency=${frequency}`)
   }
 
-  // Filter policies by category and limit to important ones
+  // Filter policies by category - show all database policies
   const filteredPolicies = policies.filter(policy => {
-    // Check if this policy is in our curated list
-    const isInCuratedList = Object.keys(policyDetailsData).some(
-      key => key.toLowerCase() === policy.name?.toLowerCase()
-    )
-    
     if (activeCategory === 'all') {
-      return isInCuratedList
+      return true // Show all policies from database
     }
     
-    const policyCategory = getCategoryForPolicy(policy.name)
-    return isInCuratedList && policyCategory === activeCategory
+    // Get category from database field first, then fallback to name-based detection
+    const policyCategory = policy.category || getCategoryForPolicy(policy.name)
+    return policyCategory === activeCategory
   })
 
   if (loading) {
@@ -796,7 +816,7 @@ export default function Products() {
             {filteredPolicies.map((policy, index) => {
               const price = insuranceService.calculatePremium(policy.base_annual_premium, frequency)
               const PolicyIcon = getIconForPolicy(policy.name)
-              const details = getPolicyDetails(policy.name)
+              const details = getPolicyDetails(policy)
               
               return (
                 <div 

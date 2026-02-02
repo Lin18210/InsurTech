@@ -73,8 +73,60 @@ export const insuranceService = {
       case 'yearly': return base.toFixed(2)
       default: return base.toFixed(2)
     }
+  },
+
+  // ========== POLICY MANAGEMENT (Admin) ==========
+  
+  // Create a new policy
+  async createPolicy(policyData) {
+    console.log('📝 [Admin] Creating new policy:', policyData.name)
+    const res = await fetch(`${API_URL}/policies`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(policyData)
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      console.error('❌ Error creating policy:', data)
+      throw new Error(data.error || 'Failed to create policy')
+    }
+    console.log('✅ Policy created:', data.id)
+    return data
+  },
+
+  // Update an existing policy
+  async updatePolicy(id, policyData) {
+    console.log('📝 [Admin] Updating policy:', id)
+    const res = await fetch(`${API_URL}/policies/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(policyData)
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      console.error('❌ Error updating policy:', data)
+      throw new Error(data.error || 'Failed to update policy')
+    }
+    console.log('✅ Policy updated:', data.id)
+    return data
+  },
+
+  // Delete a policy
+  async deletePolicy(id) {
+    console.log('🗑️ [Admin] Deleting policy:', id)
+    const res = await fetch(`${API_URL}/policies/${id}`, {
+      method: 'DELETE'
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      console.error('❌ Error deleting policy:', data)
+      throw new Error(data.error || 'Failed to delete policy')
+    }
+    console.log('✅ Policy deleted:', id)
+    return data
   }
 }
 
 // Re-export dynamic premium calculation from PremiumCalculator
 export { calculateDynamicPremium, calculateAge, getAgeGroup } from '../components/PremiumCalculator'
+
