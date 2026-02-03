@@ -151,7 +151,7 @@ export default function Home() {
               </h1>
 
               <p className="animate-slideUp opacity-0-start delay-200 text-lg text-sky-100 mb-8 max-w-lg">
-                {isMyanmar ? 'ပြည့်စုံသော အာမခံဖြေရှင်းချက်များဖြင့် မိသားစုများနှင့် စီးပွားရေးလုပ်ငန်းများကို ကာကွယ်ပေးပါသည်။ ရိုးရှင်း၊ ပွင့်လင်းမြင်သာပြီး သင်လိုအပ်သည့်အခါ အမြဲရှိနေပါသည်။' : 'Protecting families and businesses with comprehensive insurance solutions. Simple, transparent, and always there when you need us.'}
+                {isMyanmar ? 'ပြည့်စုံသော အာမခံဖြေရှင်းချက်များဖြင့် မိသားစုများနှင့် စီးပွားရေးလုပ်ငန်းများကို ကာကွယ်ပေးပါသည်။ ရိုးရှင်း၊ ပွင့်လင်းမြင်သာပြီး သင်လိုအပ်သည့်အခါ အမြဲရှိနေပါသည်။' : 'Protecting families and businesses with comprehensive insurance solutions. Simple, Trustworthy, and always there when you need us.'}
               </p>
 
               <div className="animate-fadeInUp opacity-0-start delay-300 flex flex-col sm:flex-row gap-4 mb-8">
