@@ -8,6 +8,57 @@ import {
   Activity, Building2, Sparkles, LayoutGrid, Plane, ShieldCheck
 } from 'lucide-react'
 
+// Import category images
+// Life Insurance images
+import lifeImg1 from '../assets/Life/1.jpg'
+import lifeImg2 from '../assets/Life/2.jpg'
+import lifeImg3 from '../assets/Life/3.jpg'
+import lifeImg4 from '../assets/Life/4.jpg'
+import lifeImg5 from '../assets/Life/photo_6062354589396176997_x.jpg'
+
+// Health Insurance images
+import healthImg1 from '../assets/Health/1.jpg'
+import healthImg2 from '../assets/Health/2.jpg'
+import healthImg3 from '../assets/Health/3.jpg'
+import healthImg4 from '../assets/Health/4.jpg'
+import healthImg5 from '../assets/Health/5.jpg'
+
+// Auto/Motor Insurance images
+import autoImg1 from '../assets/Motor/1.jpg'
+import autoImg2 from '../assets/Motor/2.jpg'
+import autoImg3 from '../assets/Motor/3.jpg'
+import autoImg4 from '../assets/Motor/4.jpg'
+import autoImg5 from '../assets/Motor/5.png'
+
+// Property/Home Insurance images
+import propertyImg1 from '../assets/Home/1.jpg'
+import propertyImg2 from '../assets/Home/2.jpg'
+import propertyImg3 from '../assets/Home/3.jpg'
+import propertyImg4 from '../assets/Home/4.jpg'
+import propertyImg5 from '../assets/Home/5.jpg'
+
+// Travel/General Insurance images
+import travelImg1 from '../assets/Travel/1.jpg'
+import travelImg2 from '../assets/Travel/2.jpg'
+import travelImg3 from '../assets/Travel/3.png'
+import travelImg4 from '../assets/Travel/4.jpg'
+import travelImg5 from '../assets/Travel/5.jpg'
+
+// Category images mapping
+const categoryImages = {
+  life: [lifeImg1, lifeImg2, lifeImg3, lifeImg4, lifeImg5],
+  health: [healthImg1, healthImg2, healthImg3, healthImg4, healthImg5],
+  auto: [autoImg1, autoImg2, autoImg3, autoImg4, autoImg5],
+  property: [propertyImg1, propertyImg2, propertyImg3, propertyImg4, propertyImg5],
+  general: [travelImg1, travelImg2, travelImg3, travelImg4, travelImg5]
+}
+
+// Get image for a policy based on its category and index
+const getImageForPolicy = (category, index) => {
+  const images = categoryImages[category] || categoryImages.general
+  return images[index % images.length]
+}
+
 // Category definitions with icons
 const categories = [
   { key: 'all', label: 'All Plans', icon: LayoutGrid },
@@ -500,17 +551,25 @@ const cardAnimationStyles = `
   }
   
   .shimmer-glow {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    background-size: 200% 100%;
+    animation: shimmerGlow 2s linear infinite;
+  }
+  
+  .dark .shimmer-glow {
+    background: linear-gradient(90deg, transparent, rgba(56,189,248,0.15), transparent);
     background-size: 200% 100%;
     animation: shimmerGlow 2s linear infinite;
   }
 `
 
 // Detail Modal Component
-function PolicyDetailModal({ policy, frequency, onClose, onApply }) {
+function PolicyDetailModal({ policy, frequency, onClose, onApply, imageIndex = 0 }) {
   const details = getPolicyDetails(policy)
   const PolicyIcon = getIconForPolicy(policy.name)
   const price = insuranceService.calculatePremium(policy.base_annual_premium, frequency)
+  const policyCategory = policy.category || getCategoryForPolicy(policy.name)
+  const policyImage = getImageForPolicy(policyCategory, imageIndex)
   
   // Close on escape key
   useEffect(() => {
@@ -531,22 +590,35 @@ function PolicyDetailModal({ policy, frequency, onClose, onApply }) {
         className="bg-white dark:bg-gray-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl modal-fade-in"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="relative bg-gradient-to-r from-sky-500 to-blue-600 p-8 rounded-t-3xl">
+        {/* Header with Background Image */}
+        <div className="relative h-48 rounded-t-3xl overflow-hidden">
+          {/* Background Image */}
+          <img 
+            src={policyImage} 
+            alt={policy.name}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+          
+          {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center text-white transition-colors"
+            className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-colors z-10"
           >
             <X className="w-5 h-5" />
           </button>
           
-          <div className="flex items-center gap-6">
-            <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
-              <PolicyIcon className="w-10 h-10 text-white" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-white">{policy.name}</h2>
-              <p className="text-sky-100 mt-1">{details.tagline}</p>
+          {/* Content */}
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                <PolicyIcon className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-white">{policy.name}</h2>
+                <p className="text-white/80 mt-1">{details.tagline}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -630,6 +702,7 @@ export default function Products() {
   const [activeCategory, setActiveCategory] = useState('all')
   const [animateCards, setAnimateCards] = useState(false)
   const [selectedPolicy, setSelectedPolicy] = useState(null)
+  const [selectedPolicyIndex, setSelectedPolicyIndex] = useState(0)
   const { user } = useAuth()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -679,7 +752,7 @@ export default function Products() {
     navigate(`/checkout?policyId=${policy.id}&frequency=${frequency}`)
   }
 
-  // Filter policies by category - show all database policies
+  // Filter policies by category - show all database policies (max 5 per specific category)
   const filteredPolicies = policies.filter(policy => {
     if (activeCategory === 'all') {
       return true // Show all policies from database
@@ -689,6 +762,9 @@ export default function Products() {
     const policyCategory = policy.category || getCategoryForPolicy(policy.name)
     return policyCategory === activeCategory
   })
+  
+  // Only limit to 5 for specific categories, not for "All Plans"
+  const displayedPolicies = activeCategory === 'all' ? filteredPolicies : filteredPolicies.slice(0, 5)
 
   if (loading) {
     return (
@@ -811,30 +887,41 @@ export default function Products() {
         </div>
 
         {/* Horizontal Policy Cards */}
-        {filteredPolicies.length > 0 ? (
+        {displayedPolicies.length > 0 ? (
           <div className="space-y-4">
-            {filteredPolicies.map((policy, index) => {
+            {displayedPolicies.map((policy, index) => {
               const price = insuranceService.calculatePremium(policy.base_annual_premium, frequency)
               const PolicyIcon = getIconForPolicy(policy.name)
               const details = getPolicyDetails(policy)
+              const policyCategory = policy.category || getCategoryForPolicy(policy.name)
+              const policyImage = getImageForPolicy(policyCategory, index)
               
               return (
                 <div 
                   key={policy.id}
-                  onClick={() => setSelectedPolicy(policy)}
-                  className={`bg-white dark:bg-gray-800 rounded-2xl border border-sky-100 dark:border-gray-700 shadow-lg hover:shadow-xl hover:border-sky-300 dark:hover:border-sky-600 transition-all duration-300 cursor-pointer group ${
+                  onClick={() => { setSelectedPolicy(policy); setSelectedPolicyIndex(index); }}
+                  className={`bg-white dark:bg-gray-800 rounded-2xl border border-sky-100 dark:border-gray-700 shadow-lg hover:shadow-xl hover:border-sky-300 dark:hover:border-sky-600 transition-all duration-300 cursor-pointer group overflow-hidden ${
                     animateCards ? 'card-slide-in' : 'opacity-0'
                   }`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="flex items-center p-6 gap-6">
-                    {/* Icon */}
-                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-sky-100 to-sky-50 dark:from-sky-900 dark:to-gray-800 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:from-sky-400 group-hover:to-sky-500 transition-all duration-300">
-                      <PolicyIcon className="w-8 h-8 md:w-10 md:h-10 text-sky-500 group-hover:text-white transition-colors" />
+                  <div className="flex items-stretch h-36 md:h-40">
+                    {/* Image Section */}
+                    <div className="relative w-32 md:w-48 h-full flex-shrink-0 overflow-hidden">
+                      <img 
+                        src={policyImage} 
+                        alt={policy.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/20" />
+                      {/* Icon Badge */}
+                      <div className="absolute bottom-2 left-2 w-10 h-10 bg-white/90 dark:bg-gray-800/90 rounded-xl flex items-center justify-center shadow-lg">
+                        <PolicyIcon className="w-5 h-5 text-sky-500" />
+                      </div>
                     </div>
                     
                     {/* Content */}
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 p-5 min-w-0">
                       <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0">
                           <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors truncate">
@@ -924,6 +1011,7 @@ export default function Products() {
           frequency={frequency}
           onClose={() => setSelectedPolicy(null)}
           onApply={handleApply}
+          imageIndex={selectedPolicyIndex}
         />
       )}
     </div>

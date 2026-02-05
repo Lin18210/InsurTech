@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom'
 import { Shield, Heart, Clock, Headphones, CheckCircle, ArrowRight, Star, Users, TrendingUp, FileCheck, Award, Phone, Sparkles, Zap, Car, Home as HomeIcon, Umbrella, DollarSign, Activity, Plane, Briefcase } from 'lucide-react'
 import useScrollAnimation from '../utils/useScrollAnimation'
 import heroBanner from '../assets/Banner 3.png'
+import lifeInsuranceImg from '../assets/Home/1.jpg'
+import healthInsuranceImg from '../assets/Home/2.jpg'
+import healthPremiumsImg from '../assets/Home/3.jpg'
+import autoInsuranceImg from '../assets/Home/4.jpg'
+import travelInsuranceImg from '../assets/Home/5.jpg'
 import { useLanguage } from '../context/LanguageContext'
 
 // Features
@@ -394,6 +399,175 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* 🏆 Our Insurance Solutions - Image Showcase */}
+      <AnimatedSection className="py-24 bg-gradient-to-b from-sky-50 to-white dark:from-gray-900 dark:to-gray-800 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-sky-100 to-blue-100 dark:from-sky-900/50 dark:to-blue-900/50 text-sky-600 dark:text-sky-400 text-sm font-medium mb-4">
+              <Shield className="w-4 h-4 mr-2" />
+              {t('ourServices')}
+            </div>
+            <h3 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              {isMyanmar ? 'ကျွန်ုပ်တို့၏ အာမခံဖြေရှင်းချက်များ' : 'Our Insurance Solutions'}
+            </h3>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              {isMyanmar ? 'သင့်ဘဝအတွက် ကာကွယ်မှုအပြည့်အဝရရန် ကျွန်ုပ်တို့၏ ပြည့်စုံသော အာမခံပစ္စည်းများကို လေ့လာပါ' : 'Explore our comprehensive range of insurance products designed to protect every aspect of your life'}
+            </p>
+          </div>
+
+          {/* Main Grid - Larger featured cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+            {/* Life Insurance - Large Card */}
+            <Link 
+              to="/products?category=life"
+              className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="aspect-[4/3] overflow-hidden">
+                <img 
+                  src={lifeInsuranceImg} 
+                  alt="Life Insurance" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Users className="w-5 h-5 text-amber-400" />
+                  <span className="text-amber-400 font-semibold text-sm">{isMyanmar ? 'အကာအကွယ် #1' : 'Top Protection'}</span>
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">{isMyanmar ? 'အသက်အာမခံ' : 'Life Insurance'}</h4>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {isMyanmar ? 'သင့်မိသားစုအတွက် ငွေကြေးဆိုင်ရာ လုံခြုံမှုကို ကာကွယ်ပေးပါ' : 'Secure your family\'s financial future with comprehensive life coverage'}
+                </p>
+                <div className="mt-4 flex items-center text-sky-400 font-medium text-sm group-hover:text-sky-300">
+                  {t('learnMore')}
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            {/* Health Insurance - Large Card */}
+            <Link 
+              to="/products?category=health"
+              className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="aspect-[4/3] overflow-hidden">
+                <img 
+                  src={healthInsuranceImg} 
+                  alt="Health Insurance" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Heart className="w-5 h-5 text-rose-400" />
+                  <span className="text-rose-400 font-semibold text-sm">{isMyanmar ? 'ကျန်းမာရေး' : 'Healthcare'}</span>
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">{isMyanmar ? 'ကျန်းမာရေးအာမခံ' : 'Health Insurance'}</h4>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {isMyanmar ? 'ဆေးဘက်ဆိုင်ရာ ကုန်ကျစရိတ်များအတွက် ပြည့်စုံသော အကာအကွယ်' : 'Complete medical coverage for you and your loved ones'}
+                </p>
+                <div className="mt-4 flex items-center text-sky-400 font-medium text-sm group-hover:text-sky-300">
+                  {t('learnMore')}
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            {/* Health Premiums - Large Card */}
+            <Link 
+              to="/products?category=health"
+              className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="aspect-[4/3] overflow-hidden">
+                <img 
+                  src={healthPremiumsImg} 
+                  alt="Health Premiums" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="w-5 h-5 text-emerald-400" />
+                  <span className="text-emerald-400 font-semibold text-sm">{isMyanmar ? 'စျေးနှုန်းသက်သာ' : 'Affordable Rates'}</span>
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">{isMyanmar ? 'ကျန်းမာရေး ပရီမီယံများ' : 'Health Premiums'}</h4>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  {isMyanmar ? 'သင့်ဘတ်ဂျက်နှင့် ကိုက်ညီသော ပြောင်းလွယ်ပြင်လွယ် အစီအစဉ်များ' : 'Flexible plans that fit your budget with transparent pricing'}
+                </p>
+                <div className="mt-4 flex items-center text-sky-400 font-medium text-sm group-hover:text-sky-300">
+                  {t('learnMore')}
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Bottom Row - Two wide cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Auto Insurance */}
+            <Link 
+              to="/products?category=auto"
+              className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="aspect-[16/9] overflow-hidden">
+                <img 
+                  src={autoInsuranceImg} 
+                  alt="Auto Insurance" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Car className="w-5 h-5 text-blue-400" />
+                  <span className="text-blue-400 font-semibold text-sm">{isMyanmar ? 'ယာဥ်အကာအကွယ်' : 'Vehicle Protection'}</span>
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">{isMyanmar ? 'မော်တော်ကားအာမခံ' : 'Auto Insurance'}</h4>
+                <p className="text-gray-300 text-sm leading-relaxed max-w-md">
+                  {isMyanmar ? 'သင့်ယာဥ်အတွက် ပြည့်စုံသော အကာအကွယ်နှင့် လမ်းဘေးအကူအညီ' : 'Complete protection for your vehicle with roadside assistance and comprehensive coverage'}
+                </p>
+                <div className="mt-4 flex items-center text-sky-400 font-medium text-sm group-hover:text-sky-300">
+                  {t('learnMore')}
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </Link>
+
+            {/* Travel Insurance */}
+            <Link 
+              to="/products?category=general"
+              className="group relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+            >
+              <div className="aspect-[16/9] overflow-hidden">
+                <img 
+                  src={travelInsuranceImg} 
+                  alt="Travel Insurance" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Plane className="w-5 h-5 text-purple-400" />
+                  <span className="text-purple-400 font-semibold text-sm">{isMyanmar ? 'ခရီးသွားအကာအကွယ်' : 'Travel Protection'}</span>
+                </div>
+                <h4 className="text-2xl font-bold text-white mb-2">{isMyanmar ? 'ခရီးသွားအာမခံ' : 'Travel Insurance'}</h4>
+                <p className="text-gray-300 text-sm leading-relaxed max-w-md">
+                  {isMyanmar ? 'ကမ္ဘာတစ်ဝှမ်း ခရီးသွားလာမှုအတွက် အကာအကွယ်' : 'Worry-free journeys worldwide with emergency medical and trip protection'}
+                </p>
+                <div className="mt-4 flex items-center text-sky-400 font-medium text-sm group-hover:text-sky-300">
+                  {t('learnMore')}
+                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </AnimatedSection>
 
       {/* Features Section - Staggered fade in from left/right */}
       <section ref={featuresRef} className="py-24 bg-gradient-to-b from-indigo-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden transition-colors duration-300">
