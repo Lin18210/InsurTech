@@ -31,11 +31,11 @@ import autoImg4 from '../assets/Motor/4.jpg'
 import autoImg5 from '../assets/Motor/5.png'
 
 // Property/Home Insurance images
-import propertyImg1 from '../assets/Home/1.jpg'
-import propertyImg2 from '../assets/Home/2.jpg'
-import propertyImg3 from '../assets/Home/3.jpg'
-import propertyImg4 from '../assets/Home/4.jpg'
-import propertyImg5 from '../assets/Home/5.jpg'
+import propertyImg1 from '../assets/Property/1.jpg'
+import propertyImg2 from '../assets/Property/2.jpg'
+import propertyImg3 from '../assets/Property/3.jpg'
+import propertyImg4 from '../assets/Property/4.jpg'
+import propertyImg5 from '../assets/Property/5.jpg'
 
 // Travel/General Insurance images
 import travelImg1 from '../assets/Travel/1.jpg'
