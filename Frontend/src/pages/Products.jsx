@@ -775,7 +775,7 @@ export default function Products() {
             <div className="absolute inset-0 border-4 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
             <Shield className="absolute inset-0 m-auto w-8 h-8 text-sky-500 animate-pulse" />
           </div>
-          <p className="text-slate-600 dark:text-slate-300 text-lg">Loading amazing plans...</p>
+          <p className="text-slate-600 dark:text-slate-300 text-lg">Loading policies...</p>
         </div>
       </div>
     )
