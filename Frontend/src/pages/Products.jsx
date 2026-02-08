@@ -587,100 +587,105 @@ function PolicyDetailModal({ policy, frequency, onClose, onApply, imageIndex = 0
       onClick={onClose}
     >
       <div 
-        className="bg-white dark:bg-gray-800 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl modal-fade-in"
+        className="bg-white dark:bg-gray-800 rounded-3xl max-w-2xl w-full max-h-[90vh] shadow-2xl modal-fade-in flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header with Background Image */}
-        <div className="relative h-48 rounded-t-3xl overflow-hidden">
-          {/* Background Image */}
-          <img 
-            src={policyImage} 
-            alt={policy.name}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-          
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-colors z-10"
-          >
-            <X className="w-5 h-5" />
-          </button>
+        {/* Scrollable Content Area */}
+        <div className="overflow-y-auto flex-1">
+          {/* Header with Background Image */}
+          <div className="relative h-48 rounded-t-3xl overflow-hidden">
+            {/* Background Image */}
+            <img 
+              src={policyImage} 
+              alt={policy.name}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+            
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 w-10 h-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-colors z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            {/* Content */}
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                  <PolicyIcon className="w-8 h-8 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">{policy.name}</h2>
+                  <p className="text-white/80 mt-1">{details.tagline}</p>
+                </div>
+              </div>
+            </div>
+          </div>
           
           {/* Content */}
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
-                <PolicyIcon className="w-8 h-8 text-white" />
+          <div className="p-8 pb-4">
+            {/* Price Section */}
+            <div className="bg-gradient-to-r from-sky-50 to-blue-50 dark:from-sky-900/30 dark:to-blue-900/30 rounded-2xl p-6 mb-8">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Premium</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-gray-900 dark:text-white">{Number(price).toLocaleString()}</span>
+                    <span className="text-gray-500 dark:text-gray-400">MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}</span>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Coverage up to</p>
+                  <p className="text-xl font-bold text-sky-600 dark:text-sky-400">{policy.coverage_amount?.toLocaleString()} MMK</p>
+                </div>
               </div>
-              <div>
-                <h2 className="text-2xl font-bold text-white">{policy.name}</h2>
-                <p className="text-white/80 mt-1">{details.tagline}</p>
-              </div>
+            </div>
+            
+            {/* Description */}
+            <div className="mb-8">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">About This Plan</h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{details.description}</p>
+            </div>
+            
+            {/* What's Covered */}
+            <div className="mb-8">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-sky-500" />
+                What's Covered
+              </h3>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {details.coverage.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {/* Benefits */}
+            <div className="mb-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-amber-500" />
+                Key Benefits
+              </h3>
+              <ul className="space-y-3">
+                {details.benefits.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                    <Star className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
         
-        {/* Content */}
-        <div className="p-8">
-          {/* Price Section */}
-          <div className="bg-gradient-to-r from-sky-50 to-blue-50 dark:from-sky-900/30 dark:to-blue-900/30 rounded-2xl p-6 mb-8">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Premium</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-gray-900 dark:text-white">{Number(price).toLocaleString()}</span>
-                  <span className="text-gray-500 dark:text-gray-400">MMK/{frequency === 'monthly' ? 'mo' : frequency === 'quarterly' ? 'qtr' : 'yr'}</span>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">Coverage up to</p>
-                <p className="text-xl font-bold text-sky-600 dark:text-sky-400">{policy.coverage_amount?.toLocaleString()} MMK</p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Description */}
-          <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3">About This Plan</h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{details.description}</p>
-          </div>
-          
-          {/* What's Covered */}
-          <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-sky-500" />
-              What's Covered
-            </h3>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {details.coverage.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* Benefits */}
-          <div className="mb-8">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-amber-500" />
-              Key Benefits
-            </h3>
-            <ul className="space-y-3">
-              {details.benefits.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-                  <Star className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          
-          {/* CTA */}
+        {/* Fixed CTA Footer */}
+        <div className="sticky bottom-0 p-6 pt-4 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 rounded-b-3xl">
           <button
             onClick={() => onApply(policy)}
             className="w-full py-4 px-6 bg-gradient-to-r from-sky-400 via-sky-500 to-blue-500 text-white font-semibold rounded-xl hover:from-sky-500 hover:via-sky-600 hover:to-blue-600 transition-all hover:shadow-lg hover:scale-[1.02] flex items-center justify-center gap-2"
