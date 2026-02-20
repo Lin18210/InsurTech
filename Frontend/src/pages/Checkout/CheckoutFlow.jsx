@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { insuranceService } from '../../services/insuranceService'
+import { emailService } from '../../services/emailService'
 import { useAuth } from '../../context/AuthContext'
 import { generatePolicyPDF } from '../../utils/pdfGenerator'
 import { supabase } from '../../lib/supabase'
-import { CheckCircle, CreditCard, Download, Shield, Heart, User, Calendar, Calculator, AlertCircle, Check, DollarSign, Upload, FileText, X } from 'lucide-react'
+import { CheckCircle, CreditCard, Download, Shield, Heart, User, Calendar, Calculator, AlertCircle, Check, DollarSign, Upload, FileText, X, Mail } from 'lucide-react'
 import { calculateAge, getAgeGroup, calculateDynamicPremium } from '../../components/PremiumCalculator'
 
 // Constants for premium calculation display
@@ -37,6 +38,8 @@ export default function CheckoutFlow() {
   const [calculation, setCalculation] = useState(null)
   const [ageError, setAgeError] = useState('')
   const [affordabilityWarning, setAffordabilityWarning] = useState('')
+  const [emailSent, setEmailSent] = useState(false)
+  const [emailSending, setEmailSending] = useState(false)
 
   // Premium Calculator Data (Step 1)
   const [calcData, setCalcData] = useState({
@@ -184,6 +187,28 @@ export default function CheckoutFlow() {
         })
       }
       setStep(5) // Go to success step
+
+      // Send receipt email (non-blocking)
+      try {
+        setEmailSending(true)
+        await emailService.sendReceiptEmail({
+          to: formData.email,
+          customerName: formData.fullName,
+          policy: policy.name,
+          premium: premium,
+          frequency: calcData.frequency,
+          coverage: policy.coverage_amount,
+          idNumber: formData.idNumber,
+          transactionDate: new Date().toISOString()
+        })
+        setEmailSent(true)
+        console.log('✅ Receipt email sent to:', formData.email)
+      } catch (emailError) {
+        console.error('⚠️ Receipt email failed (non-blocking):', emailError)
+        setEmailSent(false)
+      } finally {
+        setEmailSending(false)
+      }
     } catch (error) {
       alert('Payment processing failed: ' + error.message)
     } finally {
@@ -634,9 +659,25 @@ export default function CheckoutFlow() {
               <CheckCircle className="h-10 w-10 text-green-600" />
             </div>
             <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Payment Successful!</h2>
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 mb-4">
               Thank you, {formData.fullName}. Your policy is now active.
             </p>
+
+            {/* Email Status */}
+            <div className={`inline-flex items-center px-4 py-2 rounded-full text-sm mb-8 ${
+              emailSending 
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : emailSent 
+                  ? 'bg-green-50 text-green-700 border border-green-200' 
+                  : 'bg-yellow-50 text-yellow-700 border border-yellow-200'
+            }`}>
+              <Mail className="w-4 h-4 mr-2" />
+              {emailSending 
+                ? 'Sending receipt to your email...'
+                : emailSent 
+                  ? `Receipt sent to ${formData.email}` 
+                  : 'Receipt email could not be sent'}
+            </div>
             
             <div className="flex justify-center space-x-4">
               <button onClick={generatePDF} className="flex items-center bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-800">

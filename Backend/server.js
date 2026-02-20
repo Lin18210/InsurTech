@@ -7,6 +7,7 @@ const authRoutes = require('./routes/authRoutes')
 const claimsRoutes = require('./routes/claimsRoutes')
 const insuranceRoutes = require('./routes/insuranceRoutes')
 const financeRoutes = require('./routes/financeRoutes')
+const emailRoutes = require('./routes/emailRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -20,6 +21,7 @@ app.use('/api/auth', authRoutes)
 app.use('/api/claims', claimsRoutes)
 app.use('/api/insurance', insuranceRoutes)
 app.use('/api/finance', financeRoutes)
+app.use('/api/email', emailRoutes)
 
 // Test Route
 app.get('/', (req, res) => {
