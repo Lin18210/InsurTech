@@ -12,7 +12,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    description: 'Mon-Fri from 8am to 6pm',
+    description: 'Monday To Friday from 8am to 6pm',
     value: '+95 09 1234567',
     action: 'tel:+95 091234567'
   },
