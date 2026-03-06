@@ -9,7 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey)
 
 async function setAdminRole() {
   try {
-    const userId = 'a1788bf3-bce5-4da1-91a0-31741cf7169f' // Dean's user ID
+    const userId = 'a1788bf3-bce5-4da1-91a0-31741cf7169f' 
     console.log(`\n🔐 Setting role "admin" for user ${userId}`)
     
     const { data, error } = await supabase

@@ -23,6 +23,361 @@ const INCOME_RANGES = [
   { value: 'above_5000000', label: 'Above 5,000,000 MMK/month', amount: 7500000 }
 ]
 
+// ─── Myanmar Payment Step Component ─────────────────────────────────────────
+
+const PAYMENT_METHODS = [
+  {
+    id: 'kpay',
+    name: 'KBZ Pay',
+    logo: '/Kpay.png',
+    color: '#1a56db',
+    accent: '#1e40af',
+    qrColor: '#1a56db',
+    accountLabel: 'KBZ Pay Phone Number',
+    accountPlaceholder: '09XXXXXXXXX',
+  },
+  {
+    id: 'wavepay',
+    name: 'Wave Pay',
+    logo: '/WavePay.png',
+    color: '#eab308',
+    accent: '#ca8a04',
+    qrColor: '#0284c7',
+    accountLabel: 'Wave Pay Phone Number',
+    accountPlaceholder: '09XXXXXXXXX',
+  },
+  {
+    id: 'ayapay',
+    name: 'AYA Pay',
+    logo: '/AyaPay.png',
+    color: '#dc2626',
+    accent: '#b91c1c',
+    qrColor: '#dc2626',
+    accountLabel: 'AYA Pay Account Number',
+    accountPlaceholder: 'AYA-XXXX-XXXX',
+  },
+  {
+    id: 'card',
+    name: 'Credit / Debit Card',
+    logo: null,
+    color: '#374151',
+    accent: '#111827',
+  },
+]
+
+// Fake QR SVG paths – visual only
+function QRPlaceholder({ color = '#1a56db' }) {
+  return (
+    <svg viewBox="0 0 100 100" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      {/* Top-left finder */}
+      <rect x="5" y="5" width="28" height="28" rx="3" fill="none" stroke={color} strokeWidth="4"/>
+      <rect x="11" y="11" width="16" height="16" rx="1" fill={color}/>
+      {/* Top-right finder */}
+      <rect x="67" y="5" width="28" height="28" rx="3" fill="none" stroke={color} strokeWidth="4"/>
+      <rect x="73" y="11" width="16" height="16" rx="1" fill={color}/>
+      {/* Bottom-left finder */}
+      <rect x="5" y="67" width="28" height="28" rx="3" fill="none" stroke={color} strokeWidth="4"/>
+      <rect x="11" y="73" width="16" height="16" rx="1" fill={color}/>
+      {/* Data modules */}
+      {[40,44,48,52,56,60,64,68,72,76,80,84,88,92,96].map((x, i) =>
+        [40,44,48,52,56,60].map((y, j) =>
+          (i + j) % 3 !== 0 ? (
+            <rect key={`${i}-${j}`} x={x / 1.0} y={y / 1.0} width="3" height="3" fill={color} rx="0.5"/>
+          ) : null
+        )
+      )}
+      {[5,9,13,17,21,25,29,33,37].map((y, j) =>
+        [40,44,48,52,56,60].map((x, i) =>
+          (i * j) % 2 === 0 ? (
+            <rect key={`r-${i}-${j}`} x={x} y={y} width="3" height="3" fill={color} rx="0.5"/>
+          ) : null
+        )
+      )}
+    </svg>
+  )
+}
+
+function PaymentStep({ premium, loading, onBack, onSubmit }) {
+  const [selectedMethod, setSelectedMethod] = useState(null)
+  const [walletTab, setWalletTab] = useState('qr') // 'qr' | 'account'
+  const [accountNum, setAccountNum] = useState('')
+  const [password, setPassword] = useState('')
+  const [cardNum, setCardNum] = useState('')
+  const [expiry, setExpiry] = useState('')
+  const [cvc, setCvc] = useState('')
+  const [qrScanned, setQrScanned] = useState(false)
+  const [ready, setReady] = useState(false)
+
+  // Determine whether user has "completed" the payment details
+  useEffect(() => {
+    if (!selectedMethod) { setReady(false); return }
+    if (selectedMethod.id === 'card') {
+      setReady(cardNum.length >= 16 && expiry.length >= 4 && cvc.length >= 3)
+    } else if (walletTab === 'qr') {
+      setReady(qrScanned)
+    } else {
+      setReady(accountNum.trim().length >= 9 && password.trim().length >= 4)
+    }
+  }, [selectedMethod, walletTab, accountNum, password, cardNum, expiry, cvc, qrScanned])
+
+  const handleMethodSelect = (method) => {
+    setSelectedMethod(method)
+    setWalletTab('qr')
+    setQrScanned(false)
+    setAccountNum('')
+    setPassword('')
+    setCardNum('')
+    setExpiry('')
+    setCvc('')
+    setReady(false)
+  }
+
+  const method = selectedMethod
+
+  return (
+    <div>
+      <h2 className="text-2xl font-bold mb-2">Secure Payment</h2>
+      <p className="text-gray-500 text-sm mb-5">Choose your preferred payment method</p>
+
+      {/* Amount Banner */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-xl mb-6 flex justify-between items-center shadow-md">
+        <span className="font-medium opacity-90">Total to pay today</span>
+        <span className="text-2xl font-extrabold tracking-tight">{premium} MMK</span>
+      </div>
+
+      {/* Payment Method Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        {PAYMENT_METHODS.map((m) => {
+          const isSelected = method?.id === m.id
+          return (
+            <button
+              key={m.id}
+              type="button"
+              onClick={() => handleMethodSelect(m)}
+              className={`relative flex flex-col items-center justify-center p-3 rounded-xl border-2 transition-all duration-200 cursor-pointer
+                ${isSelected
+                  ? 'border-blue-500 bg-blue-50 shadow-md scale-105'
+                  : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-sm'
+                }`}
+              style={isSelected ? { borderColor: m.color } : {}}
+            >
+              {isSelected && (
+                <span
+                  className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full flex items-center justify-center text-white text-xs"
+                  style={{ backgroundColor: m.color }}
+                >✓</span>
+              )}
+              {m.logo ? (
+                <img src={m.logo} alt={m.name} className="h-12 w-12 object-contain rounded-lg mb-2" />
+              ) : (
+                <div className="h-12 w-12 flex items-center justify-center rounded-lg bg-gray-800 mb-2">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                  </svg>
+                </div>
+              )}
+              <span className="text-xs font-semibold text-gray-700 text-center leading-tight">{m.name}</span>
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Payment Detail Panel */}
+      {method && method.id !== 'card' && (
+        <div
+          className="rounded-2xl border overflow-hidden shadow-sm transition-all"
+          style={{ borderColor: method.color + '40' }}
+        >
+          {/* Header */}
+          <div
+            className="flex items-center gap-3 px-5 py-3"
+            style={{ background: `linear-gradient(135deg, ${method.color}22, ${method.color}08)` }}
+          >
+            <img src={method.logo} alt={method.name} className="h-8 w-8 object-contain rounded-md" />
+            <span className="font-bold text-gray-800">{method.name}</span>
+            <span className="ml-auto text-xs font-medium px-2 py-0.5 rounded-full" style={{ color: method.color, background: method.color + '18' }}>
+              {premium} MMK
+            </span>
+          </div>
+
+          {/* Tabs */}
+          <div className="flex border-b" style={{ borderColor: method.color + '30' }}>
+            {['qr', 'account'].map(tab => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => { setWalletTab(tab); setQrScanned(false) }}
+                className={`flex-1 py-2.5 text-sm font-semibold transition-colors ${
+                  walletTab === tab
+                    ? 'text-white'
+                    : 'text-gray-500 hover:text-gray-700 bg-gray-50'
+                }`}
+                style={walletTab === tab ? { backgroundColor: method.color } : {}}
+              >
+                {tab === 'qr' ? '📷 Scan QR Code' : '🔢 Account Number'}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          <div className="p-5 bg-white">
+            {walletTab === 'qr' ? (
+              <div className="flex flex-col items-center">
+                <p className="text-sm text-gray-500 mb-4 text-center">
+                  Open your <strong>{method.name}</strong> app and scan the QR code below to complete payment
+                </p>
+                <div
+                  className="w-48 h-48 rounded-2xl overflow-hidden p-3 mb-4 shadow-inner"
+                  style={{ background: method.color + '0d', border: `2px dashed ${method.color}60` }}
+                >
+                  <QRPlaceholder color={method.qrColor} />
+                </div>
+                <p className="text-xs text-gray-400 mb-4">QR refreshes every 5 minutes</p>
+                {!qrScanned ? (
+                  <button
+                    type="button"
+                    onClick={() => setQrScanned(true)}
+                    className="px-6 py-2.5 rounded-xl text-white font-semibold text-sm transition-all hover:opacity-90 active:scale-95"
+                    style={{ backgroundColor: method.color }}
+                  >
+                    ✅ I've Scanned the QR Code
+                  </button>
+                ) : (
+                  <div className="flex items-center gap-2 text-green-600 font-semibold">
+                    <span className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600">✓</span>
+                    QR Scanned — Ready to Confirm
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                  <p className="text-xs text-gray-500 mb-1">Pay to this account</p>
+                  <p className="font-bold text-gray-800">InsurTech Myanmar Co.</p>
+                  <p className="text-sm font-mono text-gray-600">+95 09-123-456-789</p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">{method.accountLabel}</label>
+                  <input
+                    type="text"
+                    placeholder={method.accountPlaceholder}
+                    value={accountNum}
+                    onChange={e => setAccountNum(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 text-sm"
+                    style={{ '--tw-ring-color': method.color }}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Password / PIN</label>
+                  <input
+                    type="password"
+                    placeholder="Enter your wallet PIN or password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 text-sm"
+                  />
+                </div>
+                <p className="text-xs text-gray-400">
+                  🔒 Your credentials are used for this transaction only and are not stored.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Credit Card Panel */}
+      {method?.id === 'card' && (
+        <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+          <div className="flex items-center gap-3 px-5 py-3 bg-gray-50 border-b border-gray-200">
+            <div className="h-8 w-8 flex items-center justify-center rounded-md bg-gray-800">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+              </svg>
+            </div>
+            <span className="font-bold text-gray-800">Credit / Debit Card</span>
+          </div>
+          <div className="p-5 space-y-4 bg-white">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+              <input
+                type="text"
+                placeholder="0000 0000 0000 0000"
+                maxLength={19}
+                value={cardNum}
+                onChange={e => setCardNum(e.target.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim())}
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-mono"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                <input
+                  type="text"
+                  placeholder="MM/YY"
+                  maxLength={5}
+                  value={expiry}
+                  onChange={e => {
+                    let v = e.target.value.replace(/\D/g,'')
+                    if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2)
+                    setExpiry(v)
+                  }}
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+                <input
+                  type="text"
+                  placeholder="123"
+                  maxLength={4}
+                  value={cvc}
+                  onChange={e => setCvc(e.target.value.replace(/\D/g,''))}
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* No method selected hint */}
+      {!method && (
+        <div className="text-center py-6 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+          <p className="text-gray-400 text-sm">Select a payment method above to continue</p>
+        </div>
+      )}
+
+      {/* Actions */}
+      <div className="mt-8 flex justify-between items-center">
+        <button type="button" onClick={onBack} className="text-gray-600 hover:text-gray-900 font-medium">
+          Back
+        </button>
+        <button
+          onClick={onSubmit}
+          disabled={loading || !ready}
+          className="px-8 py-3 rounded-xl text-white font-semibold flex items-center gap-2 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+          style={{ backgroundColor: method?.color ?? '#16a34a', opacity: (loading || !ready) ? 0.4 : 1 }}
+        >
+          {loading ? (
+            <>
+              <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+              </svg>
+              Processing...
+            </>
+          ) : (
+            <>🔒 Pay {premium} MMK</>
+          )}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function CheckoutFlow() {
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -609,47 +964,12 @@ export default function CheckoutFlow() {
 
         {/* STEP 4: Payment */}
         {step === 4 && (
-          <form onSubmit={handlePayment}>
-            <h2 className="text-2xl font-bold mb-6">Secure Payment</h2>
-            
-            <div className="bg-blue-50 p-4 rounded-md mb-6 border border-blue-100 flex justify-between items-center">
-              <span className="text-blue-900 font-medium">Total to pay today</span>
-              <span className="text-2xl font-bold text-blue-700">{premium} MMK</span>
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Card Number</label>
-                <div className="mt-1 relative rounded-md shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <CreditCard className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <input type="text" placeholder="0000 0000 0000 0000" className="pl-10 block w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border" />
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">Expiry Date</label>
-                  <input type="text" placeholder="MM/YY" className="mt-1 block w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">CVC</label>
-                  <input type="text" placeholder="123" className="mt-1 block w-full border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2 border" />
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 flex justify-between items-center">
-              <button type="button" onClick={handleBack} className="text-gray-600 hover:text-gray-900 font-medium">Back</button>
-              <button 
-                type="submit" 
-                disabled={loading}
-                className="bg-green-600 text-white px-8 py-3 rounded-md hover:bg-green-700 flex items-center disabled:opacity-50"
-              >
-                {loading ? 'Processing...' : `Pay ${premium} MMK`}
-              </button>
-            </div>
-          </form>
+          <PaymentStep
+            premium={premium}
+            loading={loading}
+            onBack={handleBack}
+            onSubmit={handlePayment}
+          />
         )}
 
         {/* STEP 5: Success */}
