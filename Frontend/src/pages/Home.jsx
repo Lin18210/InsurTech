@@ -24,7 +24,7 @@ const features = [
   {
     icon: Heart,
     title: 'Family Protection',
-    description: 'Extend coverage to your loved ones with our family plans at discounted rates.'
+    description: 'Extend coverage to your loved ones with our family polices at discounted rates.'
   },
   {
     icon: Headphones,
