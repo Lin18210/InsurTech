@@ -19,7 +19,7 @@ const features = [
   {
     icon: Clock,
     title: 'Quick Claims Process',
-    description: 'Submit claims online and receive payouts within 48 hours. No paperwork, no hassle.'
+    description: 'Submit claims online and receive payouts within 48 hours. No manual paperwork, no hassle.'
   },
   {
     icon: Heart,
