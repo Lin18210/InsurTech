@@ -29,7 +29,7 @@ const features = [
   {
     icon: Headphones,
     title: 'Dedicated Support',
-    description: 'Our team of insurance experts is available 24/7 to answer your questions.'
+    description: 'Our team of insurance experts is available 24/7 to answer any questions.'
   }
 ]
 
