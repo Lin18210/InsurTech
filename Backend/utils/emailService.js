@@ -1,13 +1,25 @@
 const nodemailer = require('nodemailer')
 
-// Create Gmail SMTP transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+// Create Gmail SMTP transporter (lazy init to allow better error messages)
+function getTransporter() {
+  const emailUser = process.env.EMAIL_USER
+  const emailPass = process.env.EMAIL_PASS
+
+  console.log('📧 [Email Config] EMAIL_USER:', emailUser ? '✅ Set' : '❌ MISSING')
+  console.log('📧 [Email Config] EMAIL_PASS:', emailPass ? '✅ Set' : '❌ MISSING')
+
+  if (!emailUser || !emailPass) {
+    throw new Error('EMAIL_USER and EMAIL_PASS environment variables are required. Set them in your Render dashboard.')
   }
-})
+
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: emailUser,
+      pass: emailPass
+    }
+  })
+}
 
 /**
  * Send a receipt email after successful checkout
@@ -149,6 +161,7 @@ async function sendReceiptEmail({ to, customerName, policy, premium, frequency, 
   }
 
   console.log(`📧 Sending receipt email to ${to}...`)
+  const transporter = getTransporter()
   const info = await transporter.sendMail(mailOptions)
   console.log(`✅ Receipt email sent: ${info.messageId}`)
   return info
