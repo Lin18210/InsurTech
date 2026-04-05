@@ -184,7 +184,7 @@ export default function Home() {
                 </div>
                 <div className="flex items-center bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full hover:bg-white/20 transition-all">
                   <CheckCircle className="w-5 h-5 mr-2 text-green-300" />
-                  {isMyanmar ? 'အချိန်မရွေး ပယ်ဖျက်နိုင်' : 'Cancel anytime'}
+                  {isMyanmar ? 'အချိန်မရွေး ပယ်ဖျက်နိုင်' : 'Cancel Anytime'}
                 </div>
               </div>
             </div>
