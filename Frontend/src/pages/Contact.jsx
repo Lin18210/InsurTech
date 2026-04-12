@@ -112,7 +112,7 @@ export default function Contact() {
           
           <p className="animate-fadeInUp opacity-0-start delay-200 text-lg md:text-xl text-sky-100 max-w-2xl mx-auto">
             Have questions about our insurance products? Need help with a claim? 
-            Our friendly team is ready to assist you.
+            Our friendly team is ready always to assist you.
           </p>
         </div>
 
