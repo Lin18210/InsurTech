@@ -136,7 +136,7 @@ export default function Contact() {
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-sky-500 text-white flex items-center justify-center mr-3">
                     <MessageSquare className="w-5 h-5" />
                   </div>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Send Us a Message</h2>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Send Us Message</h2>
                 </div>
                 
                 {isSubmitted ? (
